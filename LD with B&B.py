@@ -64,7 +64,7 @@ class BuildModel:
         # Ranges need to be used
         T = 168
         SCount = len(scenarios)
-        DVCCount = 4
+        DVCCount = 3
         MCount = 3
         HCount = 2
         OutageStart = 15
@@ -80,9 +80,14 @@ class BuildModel:
         load = [load1, load2]
         Load = {(h, t, g): load[h-1][f'Month {g}'].iloc[t - 1] for h in RNGHouse for t in RNGTime for g in RNGMonth}
         PV_unit = {(t, g): pv[f'Month {g}'].iloc[t - 1] for t in RNGTime for g in RNGMonth}
-        Out_Time = {(g, s): [OutageStart + i for i in range(scenarios[s - 1])] for s in RNGScen for g in RNGMonth}
-        Prob = {s: prob[s - 1] for s in RNGScen}
+        Out_Time = {(g, s): 0 for s in RNGScen for g in RNGMonth}
 
+        for s in RNGScen:
+            if scenarios[s-1] != 0:
+                for g in RNGMonth:
+                    Out_Time[(g, s)] = [OutageStart + i for i in range(int(scenarios[s - 1]))]
+
+        Prob = {s: prob[s - 1] for s in RNGScen}
         # =============================================  Make Model  ==================================================
         # Generate the Model (with Lagrangian Dual)
         model = gurobipy.Model('MIP', env=env)
@@ -134,7 +139,7 @@ class BuildModel:
         u = model.addVars(Y_indices, name='u')
 
         # Lambda definition
-        lmda = [[0, 0, 0], [0, 0, 0]]
+        lmda = [[0 for _ in RNGDvc] for _ in range(len(scenarios)-1)]
 
         # Second stage constraints
         # Energy storage level
@@ -179,8 +184,11 @@ class BuildModel:
         model.addConstrs(Y_PVES[(t, g, s)] + Y_GridES[(t, g, s)] + Y_DGES[(t, g, s)] <= UB[0] * (1 - u[(t, g, s)])
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_GridPlus[(t, g, s)] == 0 for g in RNGMonth for s in RNGScen for t in Out_Time[(g, s)])
-        model.addConstrs(Y_GridMinus[(t, g, s)] == 0 for g in RNGMonth for s in RNGScen for t in Out_Time[(g, s)])
+        for s in RNGScen:
+            for g in RNGMonth:
+                if Out_Time[(g, s)] != 0:
+                    model.addConstrs(Y_GridPlus[(t, g, s)] == 0 for t in Out_Time[(g, s)])
+                    model.addConstrs(Y_GridMinus[(t, g, s)] == 0 for t in Out_Time[(g, s)])
 
         # Save variables as self for later use
         self.X = X
@@ -310,6 +318,9 @@ class BuildModel:
 
 
 if __name__ == '__main__':
+
+    scenarios, prob, load1, load2, pv = geneCases()
+
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
     OriginalModel = BuildModel()
     OriginalModel.Build()
@@ -357,7 +368,8 @@ if __name__ == '__main__':
             print(f'Z_LD before applying Subgradient is: {Objective}')
 
             if NodeItr == 1:
-                RootLmda = [[0 for _ in range(7)] for _ in range(6)]
+                # Lambda has size (#scenarios -1) * (#devices)
+                RootLmda = [[0 for _ in range(3)] for _ in range(len(scenarios)-1)]
             elif NodeItr == 2:
                 RootLmda = copy.copy(lmdaOld)
 
