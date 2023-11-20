@@ -1,0 +1,291 @@
+Year,Month,Outage Hour,Date Event Began,Time Event Began,Date of Restoration,Time of Restoration,Outage Duration,Area Affected,NERC Region,Alert Criteria,Event Type,Demand Loss (MW),Number of Customers Affected
+2003,5,2,5/15/2003,2:52 AM,5/15/2003,3:30:00 AM,0.63,North Texas,ERCOT,,Interruption of Firm ,476,192000
+2003,7,8,7/15/2003,8:24 AM,7/21/2003,10:30:00 AM,146.1,Texas,ERCOT,,Hurricane Claudette,230-300,108000
+2004,3,5,3/4/2004,5:00 AM,3/16/2004,2:45:00 PM,297.75,North Texas,ERCOT,,High Winds - Severe Storm,Less than 300,63000
+2004,3,13,3/17/2004,1:27 PM,3/17/2004,2:06:00 PM,0.65,"El Paso, Texas",WECC,,Faulty Switch,Approx. 300,"Approx. 100,000"
+2004,4,20,4/10/2004,8:00 PM,4/11/2004,4:00:00 PM,20,"Houston, Texas and surrounding suburban areas",ERCOT,,Thunderstorms,Approx. 100,"85,000 at peak"
+2004,5,15,5/11/2004,3:30 PM,5/11/2004,6:00:00 PM,2.5,"Houston, Texas and surrounding suburban areas",ERCOT,,Strong Thunderstorms,Approx. 85,"62,500 at peak "
+2004,6,17,6/1/2004,5:00 PM,6/2/2004,1:00:00 AM,8,"Collin, Dallas, Denton, Ellis, Parker, and Tarrant Counties, Texas ",ERCOT,,Severe Storms with Strong Winds,1900,500000
+2004,8,10,8/2/2004,10:00 AM,8/2/2004,8:00:00 PM,10,Southeast Texas,SPP,,Unplanned Generator Outage/High Loads Made Public Appeal,-,-
+2004,11,22,11/23/2004,10:00 PM,11/24/2004,1:00:00 AM,3,"Houston, Texas and surrounding suburban areas",ERCOT,,Strong Thunderstorms,150,119000
+2005,5,15,5/8/2005,3:00 PM,5/8/2005,10:00:00 PM,7,"Houston, Texas and surrounding suburban areas",ERCOT,,Strong Thunderstorms,672,243000
+2005,5,20,5/29/2005,8:00 PM,5/30/2005,2:30:00 AM,6.5,"Houston, Texas and surrounding suburban areas",ERCOT,,Strong Thunderstorms,328,123000
+2005,7,N/A,7/1/2005,N/A,N/A,N/A,N/A,"Texas, New Mexico, Oklahoma, Kansas",ERCOT,,Fuel Supply - Deficiency Coal Rail Transporation Interruption,0,0
+2005,9,17,9/23/2005,5:00 PM,9/24/2005,8:00:00 PM,N/A,"Houston, Texas and the surrounding suburban areas",ERCOT,,Hurricane Rita,1950,715000
+2005,9,21,9/23/2005,9:00 PM,9/25/2005,7:30:00 AM,34.5,"Texas, Louisiana, Arkansas, and Mississippi",SPP,,Hurricane Rita,N/A,766000
+2006,3,14,3/9/2006,2:00 PM,3/9/2006,10:00:00 PM,8,"Arkansas, Mississippi, Louisiana, Southeast Texas",SERC,,Severe Weather,N/A,73000
+2006,4,15,4/17/2006,3:25 PM,4/17/2006,7:30:00 PM,4.08,ERCOT Region of Texas,ERCOT,,Load Shed/Declared EECP,1000,200000
+2006,4,16,4/17/2006,4:10 PM,4/17/2006,6:11:00 PM,2.02,System-wide greater Houston metro area (and across ERCOT),ERCOT,,Load Shed/Made Public Appeals/Rolling Blackouts,260,68000
+2006,4,16,4/17/2006,4:11 PM,4/17/2006,7:20:00 PM,3.15,North and East Texas,ERCOT,,Load Shed/ Declared EECP,380,489478
+2006,4,16,4/17/2006,4:20 PM,4/17/2006,6:30:00 PM,2.17,State of Texas (all of Austin Energy),ERCOT,,Load Shed/Made Public Appeals/Rolling Blackouts,37- 40,"8,000 -10,000"
+2006,4,16,4/17/2006,4:35 PM,4/17/2006,6:10:00 PM,1.58,AEP Texas Central/Texas North,ERCOT,,Load Shed/Declared EECP,108,51404
+2006,4,7,4/21/2006,7:00 AM,4/21/2006,10:00:00 AM,3,System-wide greater Houston metro area,ERCOT,,Severe Weather,219,82000
+2006,11,10,11/15/2006,10:00 AM,11/15/2006,8:00:00 PM,10,System-wide greater Houston area,ERCOT,,High Winds,221,83000
+2007,3,7,3/31/2007,7:30 AM,3/31/2007,7:00:00 PM,11.5,"Houston, Texas",ERCOT,,Severe Thunderstorms,179,67000
+2007,5,13,5/2/2007,1:30 PM,5/3/2007,8:00:00 PM,30.5,"North Texas, Dallas Fort Worth Metroplex and Surrounding Counties, South to Waco and North to Red River",ERCOT,,Severe Storms,-,300000
+2007,8,14,8/14/2007,2:00 PM,8/14/2007,6:00:00 PM,4,"CSWS Control Area of Southwest Power Pool Parts of Oklahoma, Texas, Louisiana, Arkansas",SPP,,Declared Energy Emergency Alert2/Heat Wave,20,-
+2007,9,7,9/5/2007,7:53 AM,9/5/2007,1:11:00 PM,5.3,"Central Texas, ERCOT Grid",ERCOT,,Severe Weather/Transmission Fault-Units Tripped,1084,N/A
+2007,9,4,9/13/2007,4:00 AM,9/14/2007,7:00:00 AM,27,"Between Galveston and Beaumont, Texas",SPP,,Hurricane Humberto,N/A,118000
+2008,4,16,4/9/2008,4:00 PM,4/13/2008,1:15:00 AM,81.25,"North, Central and East Texas",TRE,,Severe Weather,N/A,488689
+2008,6,9,6/17/2008,9:01 AM,6/19/2008,8:30:00 PM,59.48,"North, Central and East Texas",TRE,,Severe Thunderstorms,N/A,234393
+2008,6,20,6/17/2008,8:35 PM,6/18/2008,1:55:00 AM,5.33,Southwestern Public Service Company Operating in the Panhandle of Texas and New Mexico,SPP,,Electrical System Separation/Severe Thunderstorms,560,18000
+2008,6,20,6/17/2008,8:40 PM,6/17/2008,11:00:00 PM,2.33,"Texas Panhandle and Texas South Plains Regions, and Oklahoma Panhandle",TRE,,Thunderstorms/Uncontrolled Loss of Load,276,37330
+2008,7,14,7/22/2008,2:00 PM,7/24/2008,5:09:00 AM,39.15,Texas Panhandle and Southeastern New Mexico,SPP,,Indequate Electric Resources to Serve Load/Public Appeal,N/A,-
+2008,7,5,7/23/2008,5:56 AM,7/31/2008,4:00:00 AM,190.07,"Port Isabel, Harlingen, Weslaco, Pharr, San Benito, Mission, McAllen, Edinburg, Texas",TRE,,Hurricane Dolly,703,211266
+2008,8,1,8/3/2008,1:30 AM,8/3/2008,4:15:00 AM,2.75,"Mississippi, Louisiana, Texas",SERC,,Severe Thunderstorms,N/A,59500
+2008,8,12,8/9/2008,12:00 PM,8/9/2008,8:46:00 PM,8.77,Texas Panhandle and Eastern New Mexico,SPP,,Declared Energy Emergency Alert 1/Made Public Appeals,0,0
+2008,9,5,9/12/2008,5:45 AM,9/14/2008,10:00:00 PM,64.25,"Primarily Southeast Texas, Louisiana, and Arkansas",SERC,,Hurricane Ike,N/A,705000
+2008,9,18,9/12/2008,6:21 PM,10/1/2008,11:59:00 PM,461.63,Greater Houston-Galveston Metro Area,TRE,,Hurricane Ike,8087,2142678
+2008,9,18,9/12/2008,6:21 PM,10/1/2008,11:59:00 PM,461.63,Greater Houston Area-Eastern Region of ERCOT,TRE,,Hurricane Ike,N/A,2504366
+2008,9,12,9/13/2008,12:00 PM,9/15/2008,8:00:00 AM,44,"North, Central and East Texas",TRE,,Hurricane Ike,N/A,238392
+2008,9,16,9/13/2008,4:00 PM,9/16/2008,7:44:00 PM,75.73,Texas and Louisana,SPP,,Hurricane Ike,N/A,184501
+2009,1,5,1/5/2009,5:00 AM,1/6/2009,6:00:00 PM,37,North and Central Texas,TRE,,Severe Storm,N/A,157019
+2009,2,2,2/11/2009,2:30 AM,2/11/2009,12:00:00 PM,9.5,"Houston, Texas",TRE,,High Winds,350,64801
+2009,3,0,3/1/2009,12:15 AM,3/1/2009,3:00:00 AM,2.75,"City of El Paso, Texas, County of El Paso",WECC,,Transmission Equipment Failure,250,132000
+2009,4,15,4/27/2009,3:30 PM,4/28/2009,11:30:00 AM,20,Greater Houston/Galveston Area,TRE,,High Winds,176,158000
+2009,6,18,6/10/2009,6:00 PM,6/14/2009,10:00:00 AM,88,North and Central Texas,TRE,,Severe Storms,N/A,800000
+2009,7,15,7/7/2009,3:30 PM,7/7/2009,7:00:00 PM,3.5,"San Antonio, Texas",TRE,,Made Public Appeals,N/A,N/A
+2009,7,19,7/18/2009,7:00 PM,7/19/2009,9:00:00 PM,26,Houston/Galveston Area,TRE,,Thunderstorms,51,73000
+2009,8,18,8/12/2009,6:25 AM,8/12/2009,10:00:00 AM,3.45,South Houston Service Area,TRE,,Thunderstorms,491,73000
+2009,8,19,8/21/2009,7:00 PM,8/22/2009,8:00:00 AM,13,Houston Metropolitan Service Area,TRE,,Thunderstorms,544,80000
+2010,2,12,2/11/2010,12:00 PM,2/15/2010,9:00:00 PM,105,Dallas/Fort Worth and East Texas,TRE ,,Winter Storm,N/A,500000
+2010,2,5,2/12/2010,5:00 AM,2/12/2010,5:00:00 PM,12,"East Texas, Western Arkansas, Northern Lousiania", SPP ,,Winter Storm,N/A,52999
+2010,6,11,6/8/2010,11:00 AM,6/8/2010,5:00:00 PM,6,Southeastern Texas,TRE ,,Thunderstorms,N/A,79741
+2010,8,12,8/4/2010,12:00 PM,8/4/2010,10:00:00 PM,10,"Northern Texas, Eastern New Mexico",SPP ,,Made Public Appeals,N/A,N/A
+2010,8,17,8/23/2010,5:50 PM,8/24/2010,9:30:00 AM,15.67,"Houston, Texas",TRE ,,Severe Weather,746,81586
+2010,9,14,9/7/2010,2:02 PM,9/8/2010,1:27:00 AM,11.42,"San Antonio, Texas",TRE ,,Tropical Storm,N/A,340350
+2011,1,13,1/24/2011,1:20:00 PM,1/24/2011,1:30:00 PM,0.17,"Newman Power Plant, Texas",WECC,,Suspicious Activity,0,0
+2011,2,5,2/2/2011,5:43:00 AM,2/3/2011,10:00:00 AM,28.28,Texas,TRE,,Generation Inadequacy/Load Shed,4000,1069730
+2011,2,7,2/2/2011,7:24:00 AM,2/2/2011,10:23:00 PM,14.98,"Dona Ana and El Paso Counties, Texas and Hudspeth County, New Mexico",WECC,,Generation Inadequacy/Load Shed,280,178000
+2011,2,17,2/2/2011,5:00:00 PM,2/3/2011,10:00:00 PM,29,"Texas Panhandle, Southeastern New Mexico",SPP,,Fuel Supply Deficiency (Natural Gas),UNK,UNK
+2011,2,22,2/3/2011,10:04:00 PM,2/4/2011,12:32:00 PM,14.47,Texas,TRE,,Generation Inadequacy/Load Shed,400,86013
+2011,2,3,2/9/2011,3:45:00 AM,2/9/2011,9:12:00 AM,5.45,"Western Houston, Texas",TRE,,Winter Storm,399,60000
+2011,2,16,2/9/2011,4:30:00 PM,2/10/2011,12:33:00 PM,20.05,Texas,TRE,,Cold Weather Event,N/A,N/A
+2011,3,12,3/10/2011,12:03:00 PM,3/11/2011,6:00:00 AM,17.95,Texas,TRE,,Suspected Physical Attack,N/A,N/A
+2011,3,18,3/15/2011,6:00:00 PM,3/15/2011,7:14:00 PM,1.23,"The Woodlands, Texas",TRE,,Suspected Physical Attack,N/A,N/A
+2011,4,19,4/4/2011,7:00:00 PM,4/5/2011,8:00:00 PM,25,"Southeast Arkansas, Southeast Louisiana, Western Mississippi, Eastern Texas",SERC,,Severe Weather,UNK,74645
+2011,6,5,6/5/2011,5:30:00 AM,6/6/2011,1:30:00 AM,20,"Houston Metro-Area, Texas",TRE,,Severe Thunderstorms,473,78000
+2011,6,0,6/6/2011,12:13:00 AM,6/6/2011,3:15:00 AM,3.03,"El Paso County, Texas; Dona Ana County, New Mexico",SPP,,Load Shed/ Automatic undervoltage relay action,450,162000
+2011,6,15,6/27/2011,3:00:00 PM,6/27/2011,7:00:00 PM,4,Texas,TRE,,Public Appeal to Reduce Electricity Usage,0,0
+2011,6,11,6/29/2011,11:30:00 AM,6/29/2011,6:04:00 PM,6.57,"Panhandle and Muleshoe, Texas",SPP,,Public Appeal to Reduce Electricity Usage,0,0
+2011,7,11,7/14/2011,11:00:00 AM,7/14/2011,7:00:00 PM,8,Texas,TRE,,Public Appeal to Reduce Electricity Usage,0,0
+2011,8,15,8/1/2011,3:00:00 PM,8/5/2011,7:00:00 PM,100,Texas,TRE,,Public Appeal to Reduce Electricity Usage,0,0
+2011,8,10,8/4/2011,10:30:00 AM,8/4/2011,4:00:00 PM,5.5,"Arkansas, Oklahoma, Texas",SPP,,Public Appeal to Reduce Electricity Usage,N/A,N/A
+2011,8,10,8/23/2011,10:30:00 AM,8/23/2011,4:54:00 PM,6.4,"Southeastern New Mexico,  Texas Panhandle",SPP,,Public Appeal to Reduce Electricity Usage,0,0
+2011,8,15,8/23/2011,3:43:00 PM,8/23/2011,7:00:00 PM,3.28,Texas,TRE,,Public Appeal to Reduce Electricity Usage,0,0
+2011,8,13,8/24/2011,1:20:00 PM,8/29/2011,7:00:00 PM,125.67,Texas,TRE,,Public Appeal to Reduce Electricity Usage,0,0
+2011,8,7,8/24/2011,7:45:00 AM,8/25/2011,6:00:00 AM,22.25,"Houston area, Texas",TRE,,Severe Weather,485,79000
+2011,8,14,8/24/2011,2:51:00 PM,8/24/2011,10:00:00 PM,7.15,"Arkansas, Louisiana, Texas",SPP,,Severe Weather,N/A,53064
+2011,9,5,9/29/2011,5:00:00 AM,9/30/2011,6:00:00 AM,25,"Houston metro area, Texas",TRE,,Severe Weather,N/A,65000
+2011,12,16,12/2/2011,4:15:00 PM,12/2/2011,8:30:00 PM,4.25,Rusk County Texas,TRE,,Suspected Physical Attack,N/A,N/A
+2012,1,21,1/10/2012,9:30:00 PM,1/10/2012,9:30:00 PM,0,"Rusk County, Texas",TRE,,Load Shed,N/A,N/A
+2012,1,10,1/17/2012,10:31:00 AM,1/17/2012,5:21:00 PM,6.83,"Austin, Texas",TRE,,Suspected Cyber Attack,N/A,0
+2012,2,5,2/23/2012,5:45:00 AM,2/23/2012,3:02:00 PM,9.28,"South East College Station, Texas",TRE,,Suspected Physical Attack,0,0
+2012,3,13,3/4/2012,1:38:00 PM,3/5/2012,11:00:00 AM,21.37,Texas,SERC,,Suspected Physical Attack,UNK,UNK
+2012,3,8,3/20/2012,8:00:00 AM,3/20/2012,1:00:00 PM,5,"Houston, Texas",TRE,,Severe Weather - Thunderstorms,N/A,96000
+2012,4,14,4/20/2012,2:27:00 PM,4/21/2012,4:27:00 AM,14,"Metropolitan Houston, Texas",TRE,,Severe Weather - Thunderstorms,N/A,120377
+2012,6,15,6/12/2012,3:57:00 PM,6/14/2012,4:57:00 AM,37,"Houston, Texas",TRE,,Severe Weather - Thunderstorms,920,175000
+2012,7,2,7/21/2012,2:19:00 AM,7/21/2012,5:20:00 AM,6.03,"City of Lubbock, Texas",SPP,,Severe Weather; Equipment Failure,220,70000
+2012,8,8,8/19/2012,8:42:00 AM,8/19/2012,12:08:00 PM,6.87,"El Paso, Texas",WECC,,Suspected Physical Attack,12,3314
+2012,11,10,11/17/2012,10:00:00 AM,11/18/2012,10:00:00 AM,24,"Comanche Peak, Texas",TRE,,Fuel Supply Deficiency,1231,0
+2012,12,0,12/25/2012,12:45:00 AM,12/28/2012,4:15:00 PM,87.5,Arkansas; Louisiana; Mississippi; Texas ,SPP,,Severe Weather - Winter Storm,Unknown,242509
+2012,12,9,12/25/2012,9:28:00 AM,12/26/2012,4:28:00 PM,31,"Houston, Texas",TRE,,"Severe Weather - Cold Front, High Winds",294,262000
+2013,8,16,8/16/2013,4:58:00 PM,8/17/2013,11:58:00 PM,31,Houston Service Area Texas,TRE,,Severe Weather - Thunderstorms,Unknown,219681
+2013,10,4,10/27/2013,4:27:00 AM,10/27/2013,10:27:00 PM,18,"Houston, Texas",TRE,,Severe Weather - Hail Storm,Unknown,171117
+2013,12,1,12/6/2013,1:51:00 AM,12/11/2013,12:00:00 PM,130.15,"Greater Houston, Texas",TRE,,Severe Weather - Ice/Snow,Unknown,881000
+2013,12,11,12/13/2013,11:00:00 AM,12/27/2013,11:00:00 AM,336,Texas,TRE,,Fuel Supply Emergencies (Coal),Unknown,Unknown
+2013,12,11,12/13/2013,11:00:00 AM,12/27/2013,11:00:00 AM,336,Texas,TE,,Fuel Supply Emergencies (Coal),Unknown,Unknown
+2014,1,7,1/6/2014,7:01:00 AM,1/7/2014,9:00:00 AM,25.98,Texas,TRE,,Public Appeal due to Severe Weather - Cold,N/A,N/A
+2014,1,9,1/18/2014,9:00:00 AM,1/18/2014,9:45:00 AM,0.75,Texas,TRE,,Public Appeal to Reduce Electricity Usage,Unknown,Unknown
+2014,2,13,2/6/2014,1:58:00 PM,2/6/2014,8:40:00 PM,6.7,Rio Grande Valley Texas,TRE,,Public Appeal to Reduce Electricity Usage,Unknown,Unknown
+2014,2,15,2/6/2014,3:35:00 PM,2/7/2014,11:30:00 AM,19.92,ERCOT Region Texas,TRE,,Public Appeal to Reduce Electricity Usage,Unknown,Unknown
+2014,2,16,2/7/2014,4:30:00 PM,2/8/2014,9:00:00 AM,16.5,ERCOT Region Texas,TRE,,Public Appeal to Reduce Electricity Usage,Unknown,Unknown
+2014,2,16,2/7/2014,4:50:00 PM,2/7/2014,8:30:00 PM,3.67,Texas,TRE,,Public Appeal to Reduce Electricity Usage,Unknown,Unknown
+2014,3,19,3/2/2014,7:00:00 PM,3/4/2014,9:00:00 AM,38,ERCOT Region Texas,TRE,,Public Appeal due to Severe Weather - Cold,N/A,N/A
+2014,4,0,4/3/2014,12:00:00 AM,Unknown,Unknown,N/A,Texas,TRE,,Fuel Supply Emergency - Coal,Unknown,Unknown
+2014,6,1,6/3/2014,1:38:00 AM,6/3/2014,1:43:00 AM,0.08,Texas,ERCOT,,Physical Attack - Vandalism,Unknown,Unknown
+2014,6,13,6/6/2014,1:00:00 PM,Unknown,Unknown,N/A,Texas,ERCOT,,Fuel Supply Emergency - Coal,Unknown,Unknown
+2014,6,9,6/12/2014,9:10:00 AM,6/12/2014,9:11:00 AM,0.02,"Somervell County, Texas",ERCOT,,Suspected Physical Attack,Unknown,Unknown
+2014,10,16,10/2/2014,4:00:00 PM,10/7/2014,10:00:00 AM,114,Texas,TRE,,Severe Weather - Thunderstorms,Unknown,500000
+2014,10,10,10/6/2014,10:52:00 AM,10/7/2014,12:52:00 AM,14,"Houston, Texas",TRE,,Severe Weather - Thunderstorms,292,129237
+2014,10,16,10/8/2014,4:47:00 PM,10/8/2014,6:29:00 PM,1.7,Rio Grande Valley Texas,TRE,,Public Appeal to Reduce Electricity Usage; Load Shed of 100 MW,Unknown,Unknown
+2014,10,16,10/8/2014,4:49:00 PM,10/8/2014,6:23:00 PM,1.57,Rio Grande Valley Texas,TRE,,Public Appeal to Reduce Electricity Usage; Load Shed of 100 MW,585,120000
+2014,10,9,10/9/2014,9:27:00 AM,Unknown,Unknown,N/A,Rio Grande Valley Texas,TRE,,Public Appeal to Reduce Electricity Usage,Unknown,2800
+2014,10,0,10/20/2014,12:00:00 AM,Unknown,Unknown,N/A,"Howard County, Texas",MRO,,Suspected Physical Attack - Vandalism,Unknown,Unknown
+2014,10,16,10/24/2014,4:00:00 PM,10/24/2014,5:50:00 PM,1.83,"Howard County, Texas",MRO,,Suspected Physical Attack - Vandalism,Unknown,Unknown
+2014,11,7,11/13/2014,7:07:00 AM,11/13/2014,7:08:00 AM,0.02,"Howard County,Texas",MRO,,Suspected Physical Attack - Vandalism,Unknown,Unknown
+2014,11,0,11/24/2014,12:00:00 AM,Unknown,Unknown,N/A,"Nebraska, Kansas, Texas, Arkansas, Louisiana, New Mexico",SPP,,Fuel Supply Emergency - Coal,Unknown,Unknown
+2015,1,10,1/27/2015,10:30:00 AM,1/27/2015,10:31:00 AM,0.02,"Kountze, Texas",SERC,Suspected Physical Attack,Sabotage,0,0
+2015,2,9,2/2/2015,9:40:00 AM,2/2/2015,9:41:00 AM,0.02,"Conroe, Texas",TRE,Suspected Physical Attack,Sabotage,Unknown,Unknown
+2015,4,21,4/17/2015,9:30:00 PM,4/19/2015,11:50:00 PM,50.33,"Houston, Texas",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,280982
+2015,4,21,4/18/2015,9:00:00 PM,4/21/2015,4:00:00 AM,55,"Dallas, Fort Worth, Texas",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,89000
+2015,4,19,4/24/2015,7:10:00 PM,4/26/2015,4:00:00 PM,44.83,"Dallas, Fort Worth, Texas",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,57000
+2015,4,10,4/27/2015,10:30:00 AM,4/28/2015,6:45:00 PM,32.25,Louisiana and Texas,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,199000
+2015,5,18,5/25/2015,6:00:00 PM,5/29/2015,7:15:00 AM,85.25,North Texas,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,454000
+2015,5,22,5/25/2015,10:45:00 PM,5/28/2015,1:25:00 AM,50.67,"Fort Bend County, & Harris County ,Texas",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,61000
+2015,5,20,5/25/2015,8:30:00 PM,5/26/2015,6:30:00 PM,22,Texas,SPP,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,57531
+2015,5,20,5/25/2015,8:30:00 PM,Unknown,Unknown,N/A,"Texas, Louisiana, Arkansas",SPP,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,57351
+2015,5,5,5/26/2015,5:30:00 AM,5/27/2015,7:00:00 PM,37.5,"Texas, Louisiana, Arkansas, Mississippi",SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,78515
+2015,6,15,6/3/2015,3:00:00 PM,6/5/2015,5:00:00 PM,50,Texas,TRE,Public appeal to reduce the use of electricity,System Operations,Unknown,Unknown
+2015,7,17,7/3/2015,5:17:00 PM,7/3/2015,11:30:00 PM,6.22,Texas,TRE,Uncontrolled loss of 300 Megawatts or more of firm system loads for more than 15 minutes from a single incident,System Operations,350,30000
+2015,7,16,7/16/2015,4:45:00 PM,7/16/2015,5:48:00 PM,1.05,Texas,SPP,Load shedding of 100 Megawatts or more implemented under emergency operational policy,System Operations,117,17311
+2015,7,9,7/30/2015,9:50:00 AM,7/30/2015,7:00:00 PM,9.17,Texas,TRE,Public appeal to reduce the use of electricity,System Operations,Unknown,Unknown
+2015,8,19,8/11/2015,7:30:00 PM,8/13/2015,4:05:00 AM,32.58,Texas: Houston;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,100000
+2015,8,15,8/13/2015,3:15:00 PM,8/13/2015,7:00:00 PM,3.75,Texas: Williamson County;,TRE,Public appeal to reduce the use of electricity,Other,Unknown,Unknown
+2015,10,10,10/13/2015,10:25:00 AM,10/13/2015,6:00:00 PM,7.58,Texas,TRE,Public appeal to reduce the use of electricity,Other,Unknown,Unknown
+2015,10,0,10/31/2015,12:45:00 AM,11/1/2015,4:05:00 PM,39.33,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,130252
+2015,12,19,12/26/2015,7:30:00 PM,Unknown,Unknown,N/A,Texas,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,70000
+2015,12,18,12/26/2015,6:00:00 PM,12/30/2015,6:00:00 AM,84,Texas: Oklahoma:,SPP,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,116800
+2016,4,5,4/18/2016,5:05:00 AM,4/20/2016,7:55:00 AM,50.83,Texas: Harris County,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Weather,Unknown,415103
+2016,4,5,4/27/2016,5:50:00 AM,4/28/2016,1:35:00 AM,19.75,Texas: Harris County,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Weather,Unknown,214864
+2016,4,18,4/27/2016,6:00:00 PM,4/27/2016,6:05:00 PM,0.08,Texas: Rusk County,TRE,Suspected Physical Attack,Sabotage,0,0
+2016,5,20,5/10/2016,8:45:00 PM,5/13/2016,3:00:00 AM,54.25,"Texas: Dallas County, Tarrant County, Parker County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Distribution Interruption,Unknown,85000
+2016,7,2,7/5/2016,2:45:00 AM,7/6/2016,3:00:00 AM,24.25,"Texas: Dallas County, Tarrant County",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,52000
+2016,7,17,7/9/2016,5:45:00 PM,7/11/2016,2:00:00 PM,44.25,Texas: Dallas County,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,62000
+2016,7,16,7/14/2016,4:30:00 PM,7/16/2016,12:00:00 AM,31.5,Arkansas: Louisiana: Mississippi: Texas,"SPP, SERC, TRE","Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,170244
+2016,8,17,8/23/2016,5:00:00 PM,8/24/2016,12:05:00 AM,7.08,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,72200
+2016,9,19,9/21/2016,7:44:00 PM,9/21/2016,9:17:00 PM,1.55,Texas: Lubbock County;,TRE,Physical attack that could potentially impact electric power system adequacy or reliability; or vandalism which targets components of any security systems,Actual Physical Event,0,0
+2016,10,15,10/3/2016,3:09:00 PM,10/4/2016,7:00:00 PM,27.85,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the electric power system,Public Appeal,Unknown,Unknown
+2016,10,11,10/5/2016,11:32:00 AM,10/5/2016,7:00:00 PM,7.47,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the electric power system,Public Appeal,Unknown,Unknown
+2016,10,9,10/6/2016,9:50:00 AM,10/6/2016,7:00:00 PM,9.17,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the electric power system,Public Appeal,Unknown,Unknown
+2016,10,11,10/7/2016,11:08:00 AM,10/7/2016,7:00:00 PM,7.87,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the electric power system,Generation Inadequacy,Unknown,Unknown
+2016,10,13,10/10/2016,1:15:00 PM,10/10/2016,7:00:00 PM,5.75,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the electric power system,Generation Inadequacy,Unknown,Unknown
+2017,12,20,12/7/2017,8:00:00 PM,12/8/2017,5:00:00 PM,21,Texas: Bexar County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,88000
+2017,12,6,12/29/2017,6:15:00 AM,12/29/2017,11:44:00 AM,5.48,Texas: Calhoun County;,TRE,Physical attack that could potentially impact electric power system adequacy or reliability; or vandalism which targets components of any security systems,Suspicious Activity,Unknown,Unknown
+2018,11,18,11/13/2018,6:19:00 PM,11/13/2018,7:40:00 PM,1.35,Arkansas: Oklahoma: Louisiana: Texas:,SPP RE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2018,12,3,12/3/2018,3:15:00 AM,12/3/2018,3:44:00 AM,0.48,Texas:,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,16,Unknown
+2018,12,9,12/11/2018,9:10:00 AM,12/11/2018,10:26:00 AM,1.27,Texas: Travis County;,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2018,12,8,12/14/2018,8:40:00 AM,12/14/2018,10:00:00 AM,1.33,Texas: Jasper County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2019,1,5,1/16/2019,5:19:00 AM,1/16/2019,7:14:00 AM,1.92,Texas: Nueces County;,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2019,2,9,2/19/2019,9:45:00 AM,Unknown,Unknown,N/A,Texas,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2019,3,15,3/13/2019,3:51:00 PM,3/16/2019,6:00:00 PM,74.15,Texas:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather/Transmission Interruption,50,54290
+2019,3,5,3/13/2019,5:50:00 AM,3/13/2019,10:30:00 AM,4.67,"Texas: Midland County, Ector County, Tarrant County, Dallas County, Wichita County, Brown County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,154124
+2019,3,15,3/13/2019,3:00:00 PM,3/14/2019,12:00:00 AM,9,Texas: Kansas: Oklahoma:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather/Transmission Interruption,Unknown,66000
+2019,4,13,4/7/2019,1:46:00 PM,4/8/2019,5:50:00 PM,28.07,Texas:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,537,231956
+2019,4,18,4/13/2019,6:15:00 PM,4/13/2019,11:15:00 PM,5,Mississippi: Arkansas: Texas: Louisiana:,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,60467
+2019,5,15,5/8/2019,3:50:00 PM,5/13/2019,12:00:00 AM,104.17,Louisiana: Texas:,SPP RE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather/Distribution Interruption,Unknown,65844
+2019,5,17,5/9/2019,5:55:00 PM,5/11/2019,8:50:00 PM,50.92,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,691,238015
+2019,5,19,5/9/2019,7:06:00 PM,5/10/2019,2:57:00 AM,7.85,Texas: Harris County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Severe Weather/Transmission Interruption,0,0
+2019,5,2,5/10/2019,2:00:00 AM,5/10/2019,12:15:00 PM,10.25,Texas:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,61008
+2019,5,15,5/18/2019,3:45:00 PM,5/20/2019,4:00:00 AM,36.25,"Texas: Ector County, Midland County, Tarrant County, Dallas County, Stephens County, Anderson County, McLennan County, Ellis County, Hunt County, Young County, Bell County, Limestone County, Collin County, Rockwall County, Henderson County, Parker County, Falls County, Freestone County, Kaufman County, Grayson County, Smith County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,68000
+2019,6,18,6/6/2019,6:09:00 PM,6/6/2019,6:35:00 PM,0.43,Texas: Bexar County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,55017
+2019,6,14,6/7/2019,2:43:00 PM,6/7/2019,4:20:00 PM,1.62,Texas: Pecos County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,8,1
+2019,6,15,6/8/2019,3:50:00 PM,6/8/2019,7:40:00 PM,3.83,Texas: Potter County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2019,6,14,6/9/2019,2:45:00 PM,6/13/2019,10:30:00 PM,103.75,"Texas: Collin County, Dallas County, Denton County, Palo Pinto County, Tarrant County, Ellis County, Williamson County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,558000
+2019,6,2,6/16/2019,2:00:00 AM,6/17/2019,11:59:00 PM,45.98,"Texas: Dallas County, Tarrant County, Collin County, Denton County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,340000
+2019,6,22,6/23/2019,10:00:00 PM,6/25/2019,11:00:00 PM,49,"Texas: Dallas County, Denton County, Ellis County, Collin County, Ellis County, Hood County, Johnson County, Kaufman County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,265000
+2019,7,1,7/9/2019,1:59:00 AM,7/9/2019,3:50:00 PM,13.85,Texas: Louisiana: Arkansas: Mississippi:,SPP RE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2019,7,12,7/10/2019,12:10:00 PM,7/12/2019,12:30:00 PM,48.33,"Texas: Collin County, Dallas County, Denton County, Hood County, Johnson County, Tarrant County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,57000
+2019,7,11,7/11/2019,11:08:00 AM,7/11/2019,11:13:00 AM,0.08,Texas: Lynn County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,26,2043
+2019,8,9,8/9/2019,9:53:00 AM,8/9/2019,10:46:00 AM,0.88,Texas: Travis County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2019,8,15,8/13/2019,3:10:00 PM,8/13/2019,5:30:00 PM,2.33,Texas: Williamson County;,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System.,Severe Weather,Unknown,Unknown
+2019,8,15,8/15/2019,3:11:00 PM,8/15/2019,6:00:00 PM,2.82,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System.,Severe Weather,Unknown,Unknown
+2019,8,16,8/18/2019,4:47:00 PM,8/18/2019,11:00:00 PM,6.22,Texas:,TRE,Uncontrolled loss of 300 Megawatts or more of firm system loads for 15 minutes or more from a single incident,Distribution Interruption,752,86373
+2019,8,16,8/18/2019,4:30:00 PM,8/18/2019,10:00:00 PM,5.5,Texas:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Transmission Interruption/Distribution Interruption,259,61000
+2019,8,15,8/18/2019,3:59:00 PM,8/18/2019,11:00:00 PM,7.02,Louisiana: Texas:,SPP RE,Firm load shedding of 100 Megawatts or more implemented under emergency operational policy.,Transmission Interruption,271,86373
+2019,9,14,9/4/2019,2:30:00 PM,9/6/2019,6:00:00 PM,51.5,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System.,Severe Weather,Unknown,Unknown
+2019,9,9,9/25/2019,9:59:00 AM,9/25/2019,10:00:00 AM,0.02,Texas:,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,Unknown,Unknown
+2019,10,14,10/6/2019,2:50:00 PM,10/6/2019,3:00:00 PM,0.17,"Texas: Hidalgo County, Cameron County;",TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,Unknown,Unknown
+2019,10,15,10/12/2019,3:00:00 PM,10/12/2019,4:21:00 PM,1.35,Texas:,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2019,10,7,10/16/2019,7:00:00 AM,Unknown,Unknown,N/A,Texas: Louisiana: Arkansas: Mississippi:,SPP RE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2019,10,22,10/20/2019,10:15:00 PM,10/25/2019,2:00:00 AM,99.75,"Texas: Cass County, Cameron County, Collin County, Dallas County, Ellis County, Erath County, Hunt County, Kaufman County, Lamar County, Panola County, Rains County, Rockwall County, Rusk County, Tarrant County, Van Zandt County, Wood County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,400000
+2019,11,6,11/16/2019,6:00:00 AM,11/16/2019,5:45:00 PM,11.75,Texas: New York: Dutchess County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2019,11,0,11/29/2019,12:00:00 AM,12/1/2019,12:00:00 AM,48,Texas: Dawson County;,TRE,"Damage or destruction of a Facility within its Reliability Coordinator Area, Balancing Authority Area or Transmission Operator Area that results in action(s) to avoid a Bulk Electric System Emergency.",Actual Physical Attack,0,0
+2019,12,13,12/8/2019,1:40:00 PM,12/8/2019,1:41:00 PM,0.02,Texas: Dallas County;,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2019,12,23,12/16/2019,11:55:00 PM,12/17/2019,1:47:00 AM,1.87,Texas:,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2019,12,14,12/18/2019,2:30:00 PM,12/18/2019,3:25:00 PM,0.92,Texas: Nueces County;,TRE,Unplanned evacuation from its Bulk Electric System control center facility for 30 continuous minutes or more.,System Operations,0,0
+2019,12,11,12/31/2019,11:03:00 AM,1/1/2020,10:59:00 AM,23.93,Texas: Nueces County;,TRE,Electrical System Separation (Islanding) where part or parts of power grid remain(s) operational in an otherwise blocked out area or within the partial failure of an integrated electrical system.,Transmission Interruption,25,0
+2020,1,3,1/11/2020,3:30:00 AM,1/11/2020,5:30:00 PM,14,Arkansas: Texas:,SPP RE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,68138
+2020,1,11,1/12/2020,11:15:00 AM,1/12/2020,11:18:00 AM,0.05,Texas: Brazos County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2020,1,11,1/16/2020,11:06:00 AM,1/16/2020,11:36:00 AM,0.5,Texas: Harris County;,TRE,Unplanned evacuation from its Bulk Electric System control center facility for 30 continuous minutes or more.,System Operations,0,0
+2020,2,2,2/11/2020,2:53:00 AM,2/11/2020,1:30:00 PM,10.62,Texas: Sterling County;,TRE,Cyber event that could potentially impact electric power system adequacy or reliability.,System Operations,0,0
+2020,3,22,3/8/2020,10:10:00 PM,3/9/2020,1:02:00 AM,2.87,Texas: Llano County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2020,4,18,4/2/2020,6:41:00 PM,4/2/2020,7:23:00 PM,0.7,Texas: Travis County;,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2020,4,2,4/5/2020,2:30:00 AM,4/5/2020,3:01:00 AM,0.52,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2020,4,19,4/9/2020,7:25:00 PM,4/10/2020,3:30:00 AM,8.08,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,95000
+2020,4,18,4/12/2020,6:13:00 PM,4/13/2020,3:23:00 PM,21.17,Texas:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,63289
+2020,4,20,4/28/2020,8:01:00 PM,4/28/2020,11:21:00 PM,3.33,Texas: Jefferson County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,14,1
+2020,4,5,4/29/2020,5:55:00 AM,4/29/2020,7:00:00 PM,13.08,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,146660
+2020,5,0,5/16/2020,12:00:00 AM,5/16/2020,12:30:00 AM,0.5,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2020,5,10,5/25/2020,10:58:00 AM,5/25/2020,1:00:00 PM,2.03,Texas: Kerr County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,8,3745
+2020,5,17,5/27/2020,5:15:00 PM,5/29/2020,6:30:00 AM,37.25,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,382000
+2020,5,17,5/27/2020,5:20:00 PM,Unknown,Unknown,N/A,Texas:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,273269
+2020,5,22,5/30/2020,10:20:00 PM,5/30/2020,11:00:00 PM,0.67,Texas: Bexar County;,TRE,Unplanned evacuation from its Bulk Electric System control center facility for 30 continuous minutes or more.,System Operations,0,0
+2020,6,12,6/26/2020,12:47:00 PM,6/26/2020,1:53:00 PM,1.1,Texas: Travis County;,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2020,7,22,7/8/2020,10:04:00 PM,Unknown,Unknown,N/A,Texas:,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Actual Physical Attack,0,0
+2020,7,4,7/12/2020,4:30:00 AM,7/13/2020,5:00:00 AM,24.5,"Texas: Collin County, Dallas County, Denton County, Rockwall County, Tarrant County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,48000
+2020,7,0,7/20/2020,12:57:00 AM,7/20/2020,2:34:00 AM,1.62,Texas: Travis County;,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Suspicious Activity,21,14096
+2020,7,21,7/25/2020,9:00:00 PM,7/26/2020,4:00:00 PM,19,"Texas: Hidalgo County, Cameron County, Starr County, Kenedy County, Willacy County, Brooks County, Jim Hogg County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,125,84000
+2020,7,19,7/25/2020,7:58:00 PM,7/27/2020,7:00:00 PM,47.03,"Texas: Nueces County, Kleberg County, Cameron County, Willacy County, Hidalgo County, Starr County, Kenedy County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,201208
+2020,8,11,8/1/2020,11:14:00 AM,8/10/2020,9:26:00 PM,226.2,"Texas: Cameron County, Willacy County, Hidalgo County, Starr County;",TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System.,Severe Weather,Unknown,Unknown
+2020,8,0,8/1/2020,12:00:00 AM,8/1/2020,12:01:00 AM,0.02,"Texas: Cameron County, Hidalgo County, Starr County, Willacy County;",TRE,"Damage or destruction of a Facility within its Reliability Coordinator Area, Balancing Authority Area or Transmission Operator Area that results in action(s) to avoid a Bulk Electric System Emergency.",Severe Weather,Unknown,Unknown
+2020,8,8,8/3/2020,8:00:00 AM,8/3/2020,1:00:00 PM,5,Texas: Ector County;,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2020,8,17,8/5/2020,5:58:00 PM,8/5/2020,8:53:00 PM,2.92,Texas: Orange County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,89,19785
+2020,8,13,8/13/2020,1:51:00 PM,8/13/2020,4:27:00 PM,2.6,Texas: El Paso County;,TRE,Firm load shedding of 100 Megawatts or more implemented under emergency operational policy.,System Operations,218,57060
+2020,8,20,8/16/2020,8:00:00 PM,8/18/2020,9:00:00 PM,49,"Texas: Collin County, Dallas County, Denton County, Tarrant County, Ellis County, Kaufman County, Johnson County, Anderson County, Angelina County, Grayson County, Smith County, Wichita County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,300000
+2020,8,14,8/18/2020,2:44:00 PM,8/18/2020,3:14:00 PM,0.5,"Texas: Culberson County, Reeves County;",TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,205,238
+2020,8,10,8/23/2020,10:30:00 AM,Unknown,Unknown,N/A,"Texas panhandle, SE NM",TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System.,Severe Weather,Unknown,Unknown
+2020,8,23,8/24/2020,11:00:00 PM,8/24/2020,11:59:00 PM,0.98,Texas: Denton County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Potential Physical Attack,0,0
+2020,8,12,8/27/2020,12:44:00 PM,8/27/2020,11:00:00 PM,10.27,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System.,Severe Weather,Unknown,Unknown
+2020,8,12,8/27/2020,12:06:00 PM,8/27/2020,10:49:00 PM,10.72,Texas:,TRE,Firm load shedding of 100 Megawatts or more implemented under emergency operational policy.,Severe Weather,581,Unknown
+2020,8,7,8/27/2020,7:40:00 AM,8/31/2020,7:40:00 AM,96,Louisiana: Texas:,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,130000
+2020,8,1,8/27/2020,1:15:00 AM,Unknown,Unknown,N/A,Texas: Louisiana:,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,615992
+2020,8,7,8/27/2020,7:40:00 AM,8/31/2020,3:33:00 AM,91.88,Louisiana: Texas:,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,47927
+2020,8,12,8/27/2020,12:02:00 PM,8/27/2020,10:54:00 PM,10.87,Texas:,TRE,Firm load shedding of 100 Megawatts or more implemented under emergency operational policy.,Severe Weather,573,Unknown
+2020,8,13,8/27/2020,1:24:00 PM,Unknown,Unknown,N/A,"Texas: Montgomery County, Liberty County;",TRE,Firm load shedding of 100 Megawatts or more implemented under emergency operational policy.,Severe Weather,208,Unknown
+2020,8,12,8/27/2020,12:06:00 PM,Unknown,Unknown,N/A,Texas:,TRE,Firm load shedding of 100 Megawatts or more implemented under emergency operational policy.,Severe Weather,350,Unknown
+2020,8,3,8/29/2020,3:35:00 AM,8/29/2020,5:45:00 AM,2.17,Texas:,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,Severe Weather,Unknown,Unknown
+2020,10,17,10/9/2020,5:30:00 PM,10/10/2020,6:00:00 PM,24.5,Louisiana: Texas: Arkansas: Mississippi:,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,477966
+2020,10,18,10/14/2020,6:26:00 PM,10/15/2020,1:11:00 PM,18.75,Texas: Pecos County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,18,Unknown
+2020,10,15,10/23/2020,3:46:00 PM,10/23/2020,11:03:00 PM,7.28,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more.",Severe Weather,Unknown,55506
+2020,10,11,10/28/2020,11:53:00 AM,10/28/2020,3:26:00 PM,3.55,Texas:,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,Unknown,Unknown
+2020,10,10,10/28/2020,10:28:00 AM,10/28/2020,10:29:00 AM,0.02,Texas:,TRE,Electrical System Separation (Islanding) where part or parts of power grid remain(s) operational in an otherwise blacked out area or within the partial failure of an integrated electrical system.,Severe Weather,Unknown,Unknown
+2020,11,9,11/20/2020,9:10:00 AM,11/20/2020,9:22:00 AM,0.2,Texas: Kentucky: Arizona: New Mexico: Oregon: Washington:,TRE,Cyber event that causes interruptions of electrical system operations.,System Operations,0,Unknown
+2020,11,14,11/30/2020,2:33:00 PM,11/30/2020,5:20:00 PM,2.78,Texas: El Paso County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2020,12,22,12/11/2020,10:51:00 PM,12/11/2020,11:57:00 PM,1.1,Texas: Harris County;,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2021,12,20,12/19/2021,8:48:00 PM,12/19/2021,9:00:00 PM,0.2,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2021,12,21,12/21/2021,9:59:00 PM,12/22/2021,2:15:00 PM,16.27,Texas: Cameron County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",System Operations,22,Unknown
+2021,12,0,12/24/2021,12:34:00 AM,12/24/2021,6:40:00 AM,6.1,Texas: Rusk County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",System Operations,Unknown,Unknown
+2022,6,2,6/9/2022,2:33:00 AM,6/9/2022,6:49:00 AM,4.27,Texas: Dallas County;,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Suspicious Activity,0,0
+2022,6,12,6/10/2022,12:08:00 PM,6/10/2022,9:30:00 PM,9.37,Texas: El Paso County;,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System,Actual Physical Attack/Vandalism,0,0
+2022,6,14,6/27/2022,2:26:00 PM,6/28/2022,3:56:00 AM,13.5,Texas: Victoria County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Severe Weather,14,2491
+2022,6,6,6/27/2022,6:21:00 AM,6/27/2022,7:26:00 AM,1.08,Texas:,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2022,6,9,6/28/2022,9:27:00 AM,6/28/2022,10:42:00 AM,1.25,Texas: Travis County;,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2022,7,21,7/10/2022,9:00:00 PM,7/11/2022,8:00:00 PM,23,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System,System Operations,Unknown,Unknown
+2022,7,11,7/13/2022,11:30:00 AM,7/13/2022,9:00:00 PM,9.5,Texas:,TRE,Public appeal to reduce the use of electricity for purposes of maintaining the continuity of the Bulk Electric System,System Operations,Unknown,Unknown
+2022,7,6,7/26/2022,6:38:00 AM,7/26/2022,12:57:00 PM,6.32,Texas: Hays County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",System Operations,0,0
+2022,8,2,8/3/2022,2:00:00 AM,8/3/2022,3:07:00 AM,1.12,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2022,8,19,8/10/2022,7:56:00 PM,8/11/2022,8:00:00 PM,24.07,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,140464
+2022,8,12,8/22/2022,12:46:00 PM,8/22/2022,1:09:00 PM,0.38,Texas: DeWitt County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",System Operations,24,6385
+2022,8,20,8/22/2022,8:40:00 PM,8/22/2022,9:57:00 PM,1.28,Texas: El Paso County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Severe Weather,0,0
+2022,8,10,8/29/2022,10:45:00 AM,8/29/2022,11:45:00 AM,1,Texas: Collin County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2022,9,16,9/4/2022,4:00:00 PM,9/6/2022,8:00:00 AM,40,"Texas: Tarrant County, Collin County, Dallas County, Ellis County, Kaufman County, Rockwall County, Williamson County, Denton County, Archer County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,190000
+2022,9,6,9/6/2022,6:00:00 AM,9/6/2022,6:22:00 AM,0.37,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2022,9,18,9/11/2022,6:19:00 PM,9/11/2022,10:28:00 PM,4.15,Texas: Fayette County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2022,9,19,9/13/2022,7:55:00 PM,9/13/2022,8:01:00 PM,0.1,Texas: El Paso County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Severe Weather,0,0
+2022,9,19,9/15/2022,7:52:00 PM,9/15/2022,9:31:00 PM,1.65,Texas: Fayette County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2022,9,16,9/21/2022,4:19:00 PM,9/21/2022,6:01:00 PM,1.7,Texas: Louisiana: Arkansas: Jefferson County; Mississippi:,TRE/SERC,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,Unknown,1521
+2022,10,15,10/10/2022,3:50:00 PM,10/10/2022,4:05:00 PM,0.25,Texas: Louisiana: Arkansas: Pope County; Mississippi:,TRE/SERC,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,Unknown,0
+2022,10,13,10/14/2022,1:30:00 PM,Unknown ,Unknown,N/A,Texas: Bee County;,RE ,Reportable Cyber Security Incident,Cyber Event,0,0
+2022,10,15,10/18/2022,3:12:00 PM,Unknown ,Unknown,N/A,Texas: Louisiana: Arkansas: Pope County; Mississippi:,TRE/SERC,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,Unknown,Unknown
+2022,10,16,10/24/2022,4:29:00 PM,10/24/2022,6:05:00 PM,1.6,Texas: New Mexico: Chaves County;,TRE/WECC,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",System Operations,34,7551
+2022,10,1,10/25/2022,1:45:00 AM,10/25/2022,1:50:00 PM,12.08,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",System Operations,Unknown,109865
+2022,10,19,10/26/2022,7:32:00 PM,10/26/2022,8:38:00 PM,1.1,Texas:,TRE,Complete loss of monitoring or control capability at its staffed Bulk Electric System control center for 30 continuous minutes or more.,System Operations,0,0
+2022,11,15,11/2/2022,3:11:00 PM,11/2/2022,3:25:00 PM,0.23,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2022,11,15,11/8/2022,3:48:00 PM,11/8/2022,4:21:00 PM,0.55,Texas: Hockley County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2022,11,7,11/23/2022,7:03:00 AM,11/23/2022,8:57:00 AM,1.9,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2022,12,19,12/17/2022,7:45:00 PM,12/17/2022,7:46:00 PM,0.02,Texas: Kaufman County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2022,12,21,12/22/2022,9:04:00 PM,12/22/2022,9:42:00 PM,0.63,Texas: Montgomery County;,TRE,Unplanned evacuation from its Bulk Electric System control center facility for 30 continuous minutes or more.,System Operations,0,0
+2022,12,6,12/23/2022,6:04:00 AM,12/23/2022,6:40:00 AM,0.6,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2023,1,16,1/2/2023,4:12:00 PM,1/3/2023,9:30:00 AM,17.3,Texas: Dallas County;,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2023,1,23,1/7/2023,11:44:00 PM,1/8/2023,2:29:00 AM,2.75,"Texas: Jasper County, Tyler County;",TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,20,9823
+2023,1,18,1/8/2023,6:40:00 PM,1/8/2023,6:54:00 PM,0.23,Texas: Bowie County;,TRE,Damage or destruction of its Facility that results from actual or suspected intentional human action.,Vandalism,0,0
+2023,1,0,1/13/2023,12:00:00 AM,1/13/2023,1:00,1,Texas: Fayette County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2023,1,15,1/24/2023,3:25:00 PM,1/26/2023,8:20:00 PM,52.92,Texas: Harris County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,100731
+2023,1,15,1/25/2023,3:57:00 PM,1/25/2023,5:38:00 PM,1.68,Texas: Cameron County;,TRE,"Physical threat to its Facility excluding weather or natural disaster related threats, which has the potential to degrade the normal operation of the Facility. Or suspicious device or activity at its Facility.",Suspicious Activity,0,0
+2023,1,3,1/25/2023,3:30:00 AM,1/25/2023,1:00:00 PM,9.5,Arkansas: Texas: Louisiana: Mississippi:,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,60958
+2023,1,8,1/31/2023,8:15:00 AM,2/6/2023,5:00:00 PM,152.75,"Texas: Dallas County, Anderson County, Bosque County, Collin County, Comanche County, Cooke County, Delta County, Denton County, Ellis County, Erath County, Fannin County, Freestone County, Hamilton County, Henderson County, Hill County, Hood County, Hopkins County, Hunt County, Jack County, Johnson County, Kaufman County, Lamar County, Navarro County, Palo Pinto County, Parker County, Rains County, Red River County, Rockwall County, Somervell County, Tarrant County, Van Zandt County, Wichita County, Wise County;",TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,360000
+2023,2,5,2/1/2023,5:00:00 AM,2/4/2023,10:39:00 PM,89.65,Texas: Travis County;,TRE,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,370,173879
+2023,2,8,2/2/2023,8:15:00 AM,2/2/2023,7:45:00 PM,11.5,Arkansas: Mississippi: Texas:,SERC,"Loss of electric service to more than 50,000 customers for 1 hour or more",Severe Weather,Unknown,74426
+2023,2,11,2/11/2023,11:17:00 AM,2/11/2023,6:20:00 PM,7.05,Texas: Taylor County;,TRE,"Unexpected Transmission loss within its area, contrary to design, of three or more Bulk Electric System Facilities caused by a common disturbance (excluding successful automatic reclosing).",Transmission Interruption,0,0
+2023,2,9,2/21/2023,9:45:00 AM,Unknown,Unknown,N/A,Texas: Cameron County;,TRE,Cyber event that could potentially impact electric power system adequacy or reliability,Cyber Event,0,0
