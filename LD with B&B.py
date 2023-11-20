@@ -281,8 +281,8 @@ class BuildModel:
         self.SetObjective(cur_lambda)
 
     def UpdateLmda(self, iteration, solution, old_lambda, step_size):
-        sub_gradient = [[solution[0][d-1] - solution[1][d-1] for d in self.RNGDvc],
-                   [solution[1][d-1] - solution[2][d-1] for d in self.RNGDvc]]
+        sub_gradient = [[solution[s-1][d-1] - solution[s
+        ][d-1] for d in self.RNGDvc] for s in self.RNGScenMinus]
         return old_lambda - np.multiply(sub_gradient, step_size ** iteration)
 
     def GetXBar(self, X):
@@ -314,7 +314,7 @@ class BuildModel:
         self.model.update()
 
     def CheckIdent(self, solution):
-        return np.sum([int(np.array_equal(solution[s], solution[s+1])) for s in self.RNGScenMinus])
+        return np.sum([int(np.array_equal(solution[s-1], solution[s])) for s in self.RNGScenMinus])
 
 
 if __name__ == '__main__':
@@ -342,9 +342,8 @@ if __name__ == '__main__':
     # START THE ALGORITHM
     while len(PSet) > 0:
         NodeItr += 1
-        print(f'\n{20*"="} Node Iteration {NodeItr} {20*"="}')
-        print(f'Best lower bound so far {Z_LB}')
-        print(PSet)
+        print(f'\n{20*"="} Node Iteration {NodeItr} - Best Lower Bound: {Z_LB} {20*"="}')
+        print(f'{len(PSet)} model(s) are active.')
 
         # This two empty sets are intended to save new branched models and add it to PSet when the P is removed.
         PSetTemp = []
@@ -373,14 +372,15 @@ if __name__ == '__main__':
             elif NodeItr == 2:
                 RootLmda = copy.copy(lmdaOld)
 
+
             lmda = RootLmda
             lmdaOld = copy.copy(lmda)
             itr = 0
             ContinueWhile = True
             while ContinueWhile:
+                itr += 1
                 lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=0.6)
                 Pmodel.UpdateObjective(cur_lambda=lmda)
-                itr += 1
                 if np.array_equal(lmda, lmdaOld):
                     ContinueWhile = False
                 else:
@@ -390,6 +390,7 @@ if __name__ == '__main__':
                 lmdaOld = copy.copy(lmda)
             SelectedPObj = Objective
             print(f'Z_LD after applying Subgradient is: {Objective}')
+
 
             # BOUNDING STEP
             if SelectedPObj < Z_LB:  # Z_LD < Z_LB =>  True: remove P from PSet, False: Continue for branching if needed
