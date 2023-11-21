@@ -139,7 +139,7 @@ class Model:
 
         PV = model.addVars(Ytg_indices, name='PV')
 
-        u = model.addVars(Y_indices, name='u')
+        u = model.addVars(Y_indices, vtype=GRB.BINARY, name='u')
 
         # Lambda definition
         lmda = [[0, 0, 0], [0, 0, 0]]

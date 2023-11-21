@@ -115,34 +115,34 @@ class Model:
         self.Yh_indices = Yh_indices
         self.Ytg_indices = Ytg_indices
 
-        Y_PVES = model.addVars(Y_indices, name='Y_PVES')
-        Y_DGES = model.addVars(Y_indices, name='Y_DGES')
-        Y_GridES = model.addVars(Y_indices, name='Y_GridES')
+        Y_PVES = model.addVars(Y_indices, lb=0, name='Y_PVES')
+        Y_DGES = model.addVars(Y_indices,  lb=0, name='Y_DGES')
+        Y_GridES = model.addVars(Y_indices,  lb=0, name='Y_GridES')
 
-        Y_PVL = model.addVars(Y_indices, name='Y_PVL')
-        Y_DGL = model.addVars(Y_indices, name='Y_DGL')
-        Y_ESL = model.addVars(Y_indices, name='Y_ESL')
-        Y_GridL = model.addVars(Y_indices, name='Y_GridL')
+        Y_PVL = model.addVars(Y_indices,  lb=0, name='Y_PVL')
+        Y_DGL = model.addVars(Y_indices,  lb=0, name='Y_DGL')
+        Y_ESL = model.addVars(Y_indices,  lb=0, name='Y_ESL')
+        Y_GridL = model.addVars(Y_indices,  lb=0, name='Y_GridL')
 
-        Y_L = model.addVars(Y_indices, name='Y_L')
-        Y_LH = model.addVars(Yh_indices, name='Y_LH')
-        Y_LL = model.addVars(Yh_indices, name='Y_LL')
+        Y_L = model.addVars(Y_indices,  lb=0, name='Y_L')
+        Y_LH = model.addVars(Yh_indices,  lb=0, name='Y_LH')
+        Y_LL = model.addVars(Yh_indices,  lb=0, name='Y_LL')
 
-        Y_PVCur = model.addVars(Y_indices, name='Y_PVCur')
-        Y_DGCur = model.addVars(Y_indices, name='Y_DGCur')
+        Y_PVCur = model.addVars(Y_indices,  lb=0, name='Y_PVCur')
+        Y_DGCur = model.addVars(Y_indices,  lb=0, name='Y_DGCur')
 
-        Y_PVGrid = model.addVars(Y_indices, name='Y_DGGrid')
-        Y_DGGrid = model.addVars(Y_indices, name='Y_DGGrid')
-        Y_ESGrid = model.addVars(Y_indices, name='Y_ESGrid')
+        Y_PVGrid = model.addVars(Y_indices,  lb=0, name='Y_DGGrid')
+        Y_DGGrid = model.addVars(Y_indices,  lb=0, name='Y_DGGrid')
+        Y_ESGrid = model.addVars(Y_indices,  lb=0, name='Y_ESGrid')
 
-        Y_GridPlus = model.addVars(Y_indices, name='Y_GridPlus')
-        Y_GridMinus = model.addVars(Y_indices, name='Y_GridMinus')
+        Y_GridPlus = model.addVars(Y_indices,  lb=0, name='Y_GridPlus')
+        Y_GridMinus = model.addVars(Y_indices,  lb=0, name='Y_GridMinus')
 
         E = model.addVars(Y_indices, name='E')
 
-        PV = model.addVars(Ytg_indices, name='PV')
+        PV = model.addVars(Ytg_indices,  lb=0, name='PV')
 
-        u = model.addVars(Y_indices, name='u')
+        u = model.addVars(Y_indices,  vtype=GRB.BINARY, name='u')
 
         # Lambda definition
         lmda = [[0, 0, 0]for s in RNGScenMinus]
@@ -274,21 +274,23 @@ class Model:
         VoLL = self.VoLL
         CO = self.CO
 
-        Cost1 = quicksum([Prob[s] * quicksum([X[(s, j)] * (CO[j]) for j in RNGDvc]) for s in RNGScen])
-        Cost2 = quicksum([Prob[s] * quicksum(
-            [PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)]) for t in RNGTime for g in RNGMonth]) for s in
-                          RNGScen])
-        Cost3 = quicksum(
-            [Prob[s] * quicksum([VoLL[h - 1] * Y_LL[(h, t, g, s)] for h in RNGHouse for t in RNGTime for g in RNGMonth])
-             for s in RNGScen])
-        Cost4 = quicksum([Prob[s] * FuelPrice * quicksum([Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
-                                                          Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth]) for s
-                          in RNGScen])
-        Cost5 = quicksum([Prob[s] * quicksum([GridPlus * Y_GridPlus[(t, g, s)] - GridMinus * Y_GridMinus[(t, g, s)] -
-                                              GenerPrice * PV[(t, g)] - quicksum(
-            [LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
-                                              for t in RNGTime for g in RNGMonth]) for s in RNGScen])
-        Cost6 = quicksum(l[s - 1][d - 1] * (X[(s, d)] - X[(s + 1, d)]) for s in RNGScenMinus for d in RNGDvc)
+        Cost1 = quicksum(Prob[s] * quicksum(X[(s, j)] * (CO[j]) for j in RNGDvc) for s in RNGScen)
+        Cost2 = quicksum(Prob[s] * quicksum(PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)])
+                                             for t in RNGTime for g in RNGMonth)
+                          for s in RNGScen)
+        Cost3 = quicksum(Prob[s] * quicksum(VoLL[h - 1] * Y_LL[(h, t, g, s)]
+                                             for h in RNGHouse for t in RNGTime for g in RNGMonth)
+                         for s in RNGScen)
+        Cost4 = quicksum(Prob[s] * FuelPrice * quicksum(Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
+                                                         Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth)
+                          for s in RNGScen)
+        Cost5 = quicksum(Prob[s] * quicksum(GridPlus * Y_GridPlus[(t, g, s)] -
+                                            GridMinus * Y_GridMinus[(t, g, s)] -
+                                            GenerPrice * PV[(t, g)] -
+                                            quicksum(LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse)
+                                              for t in RNGTime for g in RNGMonth)
+                         for s in RNGScen)
+        Cost6 = quicksum(l[s-1][d - 1] * (X[(s + 1, d)] - X[(s, d)]) for s in RNGScenMinus for d in RNGDvc)
         self.model.setObjective(Cost1 + Cost2 + Cost3 + Cost4 + Cost5 + Cost6, sense=GRB.MINIMIZE)
         self.model.update()
 
