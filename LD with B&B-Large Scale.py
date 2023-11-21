@@ -48,7 +48,7 @@ class Model:
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
         UB = [60, 30, 10]
-        LB = [10, 10, 0]
+        LB = [10, 2, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -66,7 +66,7 @@ class Model:
         Eta_i = 0.9
 
         # Ranges need to be used
-        T = 80
+        T = 73
         SCount = len(scenarios)
         DVCCount = 3
         MCount = 2
@@ -82,7 +82,7 @@ class Model:
 
         # Define the load profiles and PV profiles
         load = [load1, load2]
-        Load = {(h, t, g): load[h - 1][f'Month {g}'].iloc[t - 1] for h in RNGHouse for t in RNGTime for g in RNGMonth}
+        Load = {(h, t, g): load[h-1][f'Month {g}'].iloc[t - 1] for h in RNGHouse for t in RNGTime for g in RNGMonth}
         PV_unit = {(t, g): pv[f'Month {g}'].iloc[t - 1] for t in RNGTime for g in RNGMonth}
         Out_Time = {(g, s): 0 for s in RNGScen for g in RNGMonth}
         for s in RNGScen:
@@ -103,8 +103,7 @@ class Model:
         model.addConstrs(X[(s, d)] >= LB[d - 1] for s in RNGScen for d in RNGDvc)
 
         # First stage constraint
-        model.addConstr(quicksum([X[(s, j)] * self.C[j] for s in RNGScen for j in RNGDvc]) <= Budget,
-                        name='budget constraint')
+        model.addConstr(quicksum([X[(s, j)] * self.C[j] for s in RNGScen for j in RNGDvc]) <= Budget, name='budget constraint')
 
         # Second Stage Variables
         Y_indices = [(t, g, s) for t in RNGTime for g in RNGMonth for s in RNGScen]
@@ -115,34 +114,34 @@ class Model:
         self.Yh_indices = Yh_indices
         self.Ytg_indices = Ytg_indices
 
-        Y_PVES = model.addVars(Y_indices, lb=0, name='Y_PVES')
-        Y_DGES = model.addVars(Y_indices,  lb=0, name='Y_DGES')
-        Y_GridES = model.addVars(Y_indices,  lb=0, name='Y_GridES')
+        Y_PVES = model.addVars(Y_indices, name='Y_PVES')
+        Y_DGES = model.addVars(Y_indices, name='Y_DGES')
+        Y_GridES = model.addVars(Y_indices, name='Y_GridES')
 
-        Y_PVL = model.addVars(Y_indices,  lb=0, name='Y_PVL')
-        Y_DGL = model.addVars(Y_indices,  lb=0, name='Y_DGL')
-        Y_ESL = model.addVars(Y_indices,  lb=0, name='Y_ESL')
-        Y_GridL = model.addVars(Y_indices,  lb=0, name='Y_GridL')
+        Y_PVL = model.addVars(Y_indices, name='Y_PVL')
+        Y_DGL = model.addVars(Y_indices, name='Y_DGL')
+        Y_ESL = model.addVars(Y_indices, name='Y_ESL')
+        Y_GridL = model.addVars(Y_indices, name='Y_GridL')
 
-        Y_L = model.addVars(Y_indices,  lb=0, name='Y_L')
-        Y_LH = model.addVars(Yh_indices,  lb=0, name='Y_LH')
-        Y_LL = model.addVars(Yh_indices,  lb=0, name='Y_LL')
+        Y_L = model.addVars(Y_indices, name='Y_L')
+        Y_LH = model.addVars(Yh_indices, name='Y_LH')
+        Y_LL = model.addVars(Yh_indices, name='Y_LL')
 
-        Y_PVCur = model.addVars(Y_indices,  lb=0, name='Y_PVCur')
-        Y_DGCur = model.addVars(Y_indices,  lb=0, name='Y_DGCur')
+        Y_PVCur = model.addVars(Y_indices, name='Y_PVCur')
+        Y_DGCur = model.addVars(Y_indices, name='Y_DGCur')
 
-        Y_PVGrid = model.addVars(Y_indices,  lb=0, name='Y_DGGrid')
-        Y_DGGrid = model.addVars(Y_indices,  lb=0, name='Y_DGGrid')
-        Y_ESGrid = model.addVars(Y_indices,  lb=0, name='Y_ESGrid')
+        Y_PVGrid = model.addVars(Y_indices, name='Y_DGGrid')
+        Y_DGGrid = model.addVars(Y_indices, name='Y_DGGrid')
+        Y_ESGrid = model.addVars(Y_indices, name='Y_ESGrid')
 
-        Y_GridPlus = model.addVars(Y_indices,  lb=0, name='Y_GridPlus')
-        Y_GridMinus = model.addVars(Y_indices,  lb=0, name='Y_GridMinus')
+        Y_GridPlus = model.addVars(Y_indices, name='Y_GridPlus')
+        Y_GridMinus = model.addVars(Y_indices, name='Y_GridMinus')
 
         E = model.addVars(Y_indices, name='E')
 
-        PV = model.addVars(Ytg_indices,  lb=0, name='PV')
+        PV = model.addVars(Ytg_indices, name='PV')
 
-        u = model.addVars(Y_indices,  vtype=GRB.BINARY, name='u')
+        u = model.addVars(Y_indices, vtype=GRB.BINARY, name='u')
 
         # Lambda definition
         lmda = [[0, 0, 0]for s in RNGScenMinus]
@@ -166,6 +165,9 @@ class Model:
         model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Y_L[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
+        model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse)
+                         for t in RNGTime for s in RNGScen for g in RNGMonth)
+
         model.addConstrs(Y_LH[(h, t, g, s)] + Y_LL[(h, t, g, s)] == Load[(h, t, g)]
                          for h in RNGHouse for t in RNGTime for s in RNGScen for g in RNGMonth)
 
@@ -178,9 +180,8 @@ class Model:
         model.addConstrs(Y_GridPlus[(t, g, s)] == Eta_c * Y_GridES[(t, g, s)] + Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(
-            Y_GridMinus[(t, g, s)] == Eta_i * (Y_ESGrid[(t, g, s)] + Y_PVGrid[(t, g, s)] + Y_DGGrid[(t, g, s)])
-            for t in RNGTime for s in RNGScen for g in RNGMonth)
+        model.addConstrs(Y_GridMinus[(t, g, s)] == Eta_i * (Y_ESGrid[(t, g, s)] + Y_PVGrid[(t, g, s)] + Y_DGGrid[(t, g, s)])
+                         for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_DGL[(t, g, s)] + Y_DGES[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] == X[(s, 3)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
@@ -235,10 +236,8 @@ class Model:
         if self.model.status == 2:
             OutPut.append(self.ReturnSolutionValue(self.X))
             OutPut.append(self.model.ObjVal)
-        elif self.model.status == 3:
+        else:
             OutPut.append('Not Feasible')
-        else: 
-            OutPut.append('Unbounded')
         return OutPut
 
     def SetObjective(self, l):
@@ -274,23 +273,15 @@ class Model:
         VoLL = self.VoLL
         CO = self.CO
 
-        Cost1 = quicksum(Prob[s] * quicksum(X[(s, j)] * (CO[j]) for j in RNGDvc) for s in RNGScen)
-        Cost2 = quicksum(Prob[s] * quicksum(PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)])
-                                             for t in RNGTime for g in RNGMonth)
-                          for s in RNGScen)
-        Cost3 = quicksum(Prob[s] * quicksum(VoLL[h - 1] * Y_LL[(h, t, g, s)]
-                                             for h in RNGHouse for t in RNGTime for g in RNGMonth)
-                         for s in RNGScen)
-        Cost4 = quicksum(Prob[s] * FuelPrice * quicksum(Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
-                                                         Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth)
-                          for s in RNGScen)
-        Cost5 = quicksum(Prob[s] * quicksum(GridPlus * Y_GridPlus[(t, g, s)] -
-                                            GridMinus * Y_GridMinus[(t, g, s)] -
-                                            GenerPrice * PV[(t, g)] -
-                                            quicksum(LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse)
-                                              for t in RNGTime for g in RNGMonth)
-                         for s in RNGScen)
-        Cost6 = quicksum(l[s-1][d - 1] * (X[(s + 1, d)] - X[(s, d)]) for s in RNGScenMinus for d in RNGDvc)
+        Cost1 = quicksum([Prob[s] * quicksum([X[(s, j)] * (CO[j]) for j in RNGDvc]) for s in RNGScen])
+        Cost2 = quicksum([Prob[s] * quicksum([PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)]) for t in RNGTime for g in RNGMonth]) for s in RNGScen])
+        Cost3 = quicksum([Prob[s] * quicksum([VoLL[h - 1] * Y_LL[(h, t, g, s)] for h in RNGHouse for t in RNGTime for g in RNGMonth]) for s in RNGScen])
+        Cost4 = quicksum([Prob[s] * FuelPrice * quicksum([Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
+                                                 Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth]) for s in RNGScen])
+        Cost5 = quicksum([Prob[s] * quicksum([GridPlus * Y_GridPlus[(t, g, s)] - GridMinus * Y_GridMinus[(t, g, s)] -
+                                              GenerPrice * PV[(t, g)] - quicksum([LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
+                                              for t in RNGTime for g in RNGMonth]) for s in RNGScen])
+        Cost6 = quicksum(l[s-1][d - 1] * (X[(s, d)] - X[(s+1, d)]) for s in RNGScenMinus for d in RNGDvc)
         self.model.setObjective(Cost1 + Cost2 + Cost3 + Cost4 + Cost5 + Cost6, sense=GRB.MINIMIZE)
         self.model.update()
 
@@ -298,13 +289,13 @@ class Model:
         self.SetObjective(l)
 
     def UpdateLmda(self, iteration, solution, old_lambda, step_size, yo):
-        sub_gradient = [[solution[s][d - 1] - solution[s - 1][d - 1] for d in self.RNGDvc] for s in self.RNGScenMinus]
+        sub_gradient = [[solution[s][d - 1] - solution[s-1][d - 1] for d in self.RNGDvc] for s in self.RNGScenMinus]
         return np.add(old_lambda, - np.multiply(sub_gradient, (yo * step_size) ** iteration))
 
     def GetXBar(self, x):
         xbar = [0 for _ in self.RNGDvc]
-        for d in self.RNGDvc:
-            xbar[d-1] = np.sum([self.Prob[s] * x[s - 1][d-1] for s in self.RNGScen])
+        for s in self.RNGScen:
+            xbar = np.add(xbar, np.multiply(self.Prob[s], x[s-1]))
         return xbar
 
     def ReturnSolutionValue(self, solution):
@@ -313,7 +304,7 @@ class Model:
     def FixVarSolve(self, XFixed):
         for s in self.RNGScen:
             for d in self.RNGDvc:
-                self.model.addConstr(self.X[(s, d)] == XFixed[d - 1], name=f'Fixed({s},{d})')
+                self.model.addConstr(self.X[(s, d)] == XFixed[d-1], name=f'Fixed({s},{d})')
         self.model.update()
 
         output = self.Solve()
@@ -333,7 +324,7 @@ class Model:
         self.model.update()
 
     def CheckIdent(self, solution):
-        return np.sum([int(np.array_equal(solution[s - 1], solution[s])) for s in self.RNGScenMinus])
+        return np.sum([int(np.array_equal(solution[s-1], solution[s])) for s in self.RNGScenMinus])
 
     def GetScenariosLength(self):
         return len(self.scenarios)
@@ -384,6 +375,7 @@ if __name__ == '__main__':
 
         if len(OutPut) == 1:
             print(f'Selected node {OutPut[0]}, hence removed.')
+
         else:
             X_values = OutPut[0]
             Objective = OutPut[1]
@@ -425,7 +417,13 @@ if __name__ == '__main__':
                 if CheckIden == len(l):  # Solutions are identical
                     print(f'Solutions are identical. Lower bound updated. Selected X {X_values[0]}')
                     # Update zLowerBound if required
-                    if SelectedPObj >= Z_LB:
+                    if SelectedPObj == Z_P:
+                            X_LB = XBarR
+                            Z_LB = Z_XBarR
+                            print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
+                            PSet = []
+
+                    elif SelectedPObj >= Z_LB:
                         if SelectedPObj <= Z_P:
                             Z_LB = SelectedPObj
                             X_LB = X_values[0]
