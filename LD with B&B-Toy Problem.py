@@ -163,6 +163,9 @@ class Model:
         model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Y_L[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
+        model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse)
+                         for t in RNGTime for s in RNGScen for g in RNGMonth)
+
         model.addConstrs(Y_LH[(h, t, g, s)] + Y_LL[(h, t, g, s)] == Load[(h, t, g)]
                          for h in RNGHouse for t in RNGTime for s in RNGScen for g in RNGMonth)
 
