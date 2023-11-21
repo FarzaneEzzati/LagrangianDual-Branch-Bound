@@ -81,7 +81,6 @@ class BuildModel:
         Load = {(h, t, g): load[h-1][f'Month {g}'].iloc[t - 1] for h in RNGHouse for t in RNGTime for g in RNGMonth}
         PV_unit = {(t, g): pv[f'Month {g}'].iloc[t - 1] for t in RNGTime for g in RNGMonth}
         Out_Time = {(g, s): 0 for s in RNGScen for g in RNGMonth}
-
         for s in RNGScen:
             if scenarios[s-1] != 0:
                 for g in RNGMonth:
@@ -281,8 +280,7 @@ class BuildModel:
         self.SetObjective(cur_lambda)
 
     def UpdateLmda(self, iteration, solution, old_lambda, step_size):
-        sub_gradient = [[solution[s-1][d-1] - solution[s
-        ][d-1] for d in self.RNGDvc] for s in self.RNGScenMinus]
+        sub_gradient = [[solution[s-1][d-1] - solution[s][d-1] for d in self.RNGDvc] for s in self.RNGScenMinus]
         return old_lambda - np.multiply(sub_gradient, step_size ** iteration)
 
     def GetXBar(self, X):
