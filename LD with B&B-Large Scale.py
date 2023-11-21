@@ -36,8 +36,7 @@ class Model:
         # =============================================  PARAMETERS ==================================================
         # Read the data about scenarios, load profiles, and pv profiles
         scenarios, prob, load1, load2, pv = geneCases()
-        scenarios = [1, 4, 10]
-        prob = [0.42, 0.385, 0.23]
+        self.scenarios = scenarios
 
         # Initialization of parameters
         Budget = 100000
@@ -67,7 +66,7 @@ class Model:
         Eta_i = 0.9
 
         # Ranges need to be used
-        T = 15
+        T = 80
         SCount = len(scenarios)
         DVCCount = 3
         MCount = 2
@@ -146,7 +145,7 @@ class Model:
         u = model.addVars(Y_indices, name='u')
 
         # Lambda definition
-        lmda = [[0, 0, 0], [0, 0, 0]]
+        lmda = [[0, 0, 0]for s in RNGScenMinus]
 
         # Second stage constraints
         # Energy storage level
@@ -236,8 +235,10 @@ class Model:
         if self.model.status == 2:
             OutPut.append(self.ReturnSolutionValue(self.X))
             OutPut.append(self.model.ObjVal)
-        else:
+        elif self.model.status == 3:
             OutPut.append('Not Feasible')
+        else: 
+            OutPut.append('Unbounded')
         return OutPut
 
     def SetObjective(self, l):
@@ -300,8 +301,8 @@ class Model:
 
     def GetXBar(self, x):
         xbar = [0 for _ in self.RNGDvc]
-        for s in self.RNGScen:
-            xbar = np.add(xbar, np.multiply(self.Prob[s], x[s - 1]))
+        for d in self.RNGDvc:
+            xbar[d-1] = np.sum([self.Prob[s] * x[s - 1][d-1] for s in self.RNGScen])
         return xbar
 
     def ReturnSolutionValue(self, solution):
@@ -332,12 +333,15 @@ class Model:
     def CheckIdent(self, solution):
         return np.sum([int(np.array_equal(solution[s - 1], solution[s])) for s in self.RNGScenMinus])
 
+    def GetScenariosLength(self):
+        return len(self.scenarios)
 
 if __name__ == '__main__':
-    l = [[0, 0, 0], [0, 0, 0]]
+
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
     OriginalModel = Model()
     OriginalModel.Build()
+    l = [[0, 0, 0] for s in range(OriginalModel.GetScenariosLength()-1)]
     OriginalModel.SetObjective(l)
 
     model = Model()
@@ -376,8 +380,8 @@ if __name__ == '__main__':
         OutPut = Pmodel.Solve()
         PSet.remove(PSet[PIndex])
 
-        if OutPut == ['Not Feasible']:
-            print('Selected node not feasible, hence removed.')
+        if len(OutPut) == 1:
+            print(f'Selected node {OutPut[0]}, hence removed.')
         else:
             X_values = OutPut[0]
             Objective = OutPut[1]
@@ -432,14 +436,14 @@ if __name__ == '__main__':
 
                 else:  # Solutions differ
                     XBar = Pmodel.GetXBar(X_values)
-                    XBarR = [math.floor(x) for x in XBar]
+                    XBarR = [math.ceil(x) for x in XBar]
 
-                    # update Z_LB only if you have found an identical solution before. Otherwise, ignore it.
+                    # Update Z_LB only if you have found an identical solution before. Otherwise, ignore it.
                     print(f'Solutions are not identical. XBarR is {XBarR}.')
                     # Get cx + sum(pqy) for XR. Note that it must be applied on the primal problem without any bounds added.
                     OutPut = OriginalModel.FixVarSolve(XBarR)
-                    if OutPut == ['Not Feasible']:
-                        print('Model with XBarR is not feasible.')
+                    if len(OutPut) == 1:
+                        print(f'Selected nodPe {OutPut[0]}, hence removed.')
                     else:
                         Z_XBarR = OutPut[1]
                         print(
