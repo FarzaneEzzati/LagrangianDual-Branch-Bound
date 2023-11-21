@@ -288,7 +288,7 @@ class Model:
 
     def UpdateLmda(self, iteration, solution, old_lambda, step_size, yo):
         sub_gradient = [[solution[s][d - 1] - solution[s-1][d - 1] for d in self.RNGDvc] for s in self.RNGScenMinus]
-        return np.add(old_lambda, - np.multiply(sub_gradient, (yo * step_size) ** iteration))
+        return np.add(old_lambda, - np.multiply(sub_gradient, yo * (step_size ** iteration)))
 
     def GetXBar(self, x):
         xbar = [0 for _ in self.RNGDvc]
@@ -445,27 +445,27 @@ if __name__ == '__main__':
                                 X_P = XBarR
                                 P_P = Pmodel
 
-                            # BRANCHING STEP
-                            print(f'Solutions are not identical. Branching for XBar {XBar}')
-                            flag = True
-                            for element in range(len(XBar)):
-                                if math.floor(XBar[element]) != XBar[element]:
-                                    model1 = Model()
-                                    model1.Build()
-                                    model1.UpdateObjective(l)
-                                    model1.BranchFloor(x_index=element + 1, bound=math.floor(XBar[element]))
-                                    PSet.append(model1)
+                    # BRANCHING STEP
+                    print(f'Solutions are not identical. Branching for XBar {XBar}')
+                    flag = True
+                    for element in range(len(XBar)):
+                        if math.floor(XBar[element]) != XBar[element]:
+                            model1 = Model()
+                            model1.Build()
+                            model1.UpdateObjective(l)
+                            model1.BranchFloor(x_index=element + 1, bound=math.floor(XBar[element]))
+                            PSet.append(model1)
 
-                                    model2 = Model()
-                                    model2.Build()
-                                    model2.UpdateObjective(l)
-                                    model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element])+1)
-                                    PSet.append(model2)
+                            model2 = Model()
+                            model2.Build()
+                            model2.UpdateObjective(l)
+                            model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element])+1)
+                            PSet.append(model2)
 
-                                    flag = False
-                                    break
-                            if flag:
-                                print('All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
+                            flag = False
+                            break
+                    if flag:
+                        print('All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
     print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
     with open('LD_with_B&B_Solutions.pkl', 'wb') as handle:
         pickle.dump(X_LB, handle)
