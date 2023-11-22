@@ -48,7 +48,7 @@ class Model:
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
         UB = [60, 30, 10]
-        LB = [10, 2, 0]
+        LB = [2, 2, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -103,7 +103,8 @@ class Model:
         model.addConstrs(X[(s, d)] >= LB[d - 1] for s in RNGScen for d in RNGDvc)
 
         # First stage constraint
-        model.addConstr(quicksum([X[(s, j)] * self.C[j] for s in RNGScen for j in RNGDvc]) <= Budget, name='budget constraint')
+        for s in RNGScen:
+            model.addConstr(quicksum([X[(s, j)] * self.C[j] for j in RNGDvc]) <= Budget, name='budget constraint')
 
         # Second Stage Variables
         Y_indices = [(t, g, s) for t in RNGTime for g in RNGMonth for s in RNGScen]
@@ -329,6 +330,79 @@ class Model:
     def GetScenariosLength(self):
         return len(self.scenarios)
 
+    def OptSolve(self, x_opt):
+        for s in self.RNGScen:
+            for d in self.RNGDvc:
+                self.model.addConstr(self.X[(s, d)] == x_opt[d-1], name=f'Fixed({s},{d})')
+        self.model.update()
+        self.Solve()
+
+        y_pves = {i: 0 for i in self.Y_indices}
+        y_dges = {i: 0 for i in self.Y_indices}
+        y_grides = {i: 0 for i in self.Y_indices}
+
+        y_pvl = {i: 0 for i in self.Y_indices}
+        y_dgl = {i: 0 for i in self.Y_indices}
+        y_esl = {i: 0 for i in self.Y_indices}
+        y_gridl = {i: 0 for i in self.Y_indices}
+
+        y_l = {i: 0 for i in self.Y_indices}
+        y_lh = {i: 0 for i in self.Yh_indices}
+        y_ll= {i: 0 for i in self.Yh_indices}
+
+        y_pvcur = {i: 0 for i in self.Y_indices}
+        y_dgcur = {i: 0 for i in self.Y_indices}
+
+        y_pvgrid = {i: 0 for i in self.Y_indices}
+        y_esgrid = {i: 0 for i in self.Y_indices}
+        y_dggrid = {i: 0 for i in self.Y_indices}
+
+        y_gridplus = {i: 0 for i in self.Y_indices}
+        y_gridminus = {i: 0 for i in self.Y_indices}
+
+        e = {i: 0 for i in self.Y_indices}
+
+        pv = {i: 0 for i in self.Ytg_indices}
+
+        for t, g, s in self.Y_indices:
+            y_pves[(t, g, s)] = self.Y_PVES[(t, g, s)].x
+            y_dges[(t, g, s)] = self.Y_DGES[(t, g, s)].x
+            y_grides[(t, g, s)] = self.Y_GridES[(t, g, s)].x
+
+            y_pvl[(t, g, s)] = self.Y_PVL[(t, g, s)].x
+            y_dgl[(t, g, s)] = self.Y_DGL[(t, g, s)].x
+            y_esl[(t, g, s)] = self.Y_ESL[(t, g, s)].x
+            y_gridl[(t, g, s)] = self.Y_GridL[(t, g, s)].x
+
+            y_l[(t, g, s)] = self.Y_L[(t, g, s)].x
+
+            y_pvcur[(t, g, s)] = self.Y_PVCur[(t, g, s)].x
+            y_dgcur[(t, g, s)] = self.Y_DGCur[(t, g, s)].x
+
+            y_pvgrid[(t, g, s)] = self.Y_PVGrid[(t, g, s)].x
+            y_esgrid[(t, g, s)] = self.Y_ESGrid[(t, g, s)].x
+            y_dggrid[(t, g, s)] = self.Y_DGGrid[(t, g, s)].x
+
+            y_gridplus[(t, g, s)] = self.Y_GridPlus[(t, g, s)].x
+            y_gridminus[(t, g, s)] = self.Y_GridMinus[(t, g, s)].x
+
+            e[(t, g, s)] = self.E[(t, g, s)].x
+
+        for h, t, g, s in self.Yh_indices:
+            y_lh[(h, t, g, s)] = self.Y_LH[(h, t, g, s)].x
+            y_ll[(h, t, g, s)] = self.Y_LL[(h, t, g, s)].x
+
+        for t, g in self.Ytg_indices:
+            pv[(t, g)] = self.PV[(t, g)].x
+
+        zstar = self.model.ObjVal
+
+        with open('ToySolution.pkl', 'wb') as handle:
+            pickle.dump([x_opt, y_pves, y_dges, y_grides, y_pvl, y_dgl, y_esl, y_gridl, y_l, y_lh, y_ll, y_pvcur,
+                         y_dgcur, y_pvgrid, y_dggrid, y_esgrid, y_gridplus, y_gridminus, e, pv, self.Ytg_indices,
+                         self.Ytg_indices, self.Yh_indices, zstar], handle)
+        handle.close()
+
 if __name__ == '__main__':
 
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
@@ -482,6 +556,7 @@ if __name__ == '__main__':
                                 print(
                                     'All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
     print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
-    with open('LD_with_B&B_Solutions.pkl', 'wb') as handle:
-        pickle.dump(X_LB, handle)
-    handle.close()
+    # Solve the model with optimal X to obtain all variables for plotting
+    OptMdl = Model()
+    OptMdl.Build()
+    OptMdl.OptSolve(X_LB)
