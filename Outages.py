@@ -20,33 +20,38 @@ class Outage:
         data1_dropped = data1[mask1].dropna()
         XD = data1_dropped['OUTAGE.DURATION.HOUR']
         XS = data1_dropped['OUTAGE.START.HOUR']
+        XW = data1_dropped['Week Day']
 
         # Import Data 2
         data2 = pd.read_csv('Texas_2002_2023.csv')
         mask2 = data2['Year'] > 2016
         data2_dropped = data2[mask2].dropna()
-        YD = data2_dropped['Outage Duration']  # no need to divid by 60 since it is in hour unit
+        YD = data2_dropped['Outage Duration']  # no need to divide by 60 since it is in hour unit
         YS = data2_dropped['Outage Hour']
+        YW = data2_dropped['Week Day']
 
         # Remove outliers and combine the outage durations
         XYS = np.concatenate((XS, YS))
         XYD = np.concatenate((XD, YD))
+        XYW = np.concatenate((XW, YW))
         Q1 = np.percentile(XYD, 25, method='midpoint')
         Q3 = np.percentile(XYD, 75, method='midpoint')
         IQR = Q3 - Q1
         mask3 = XYD <= Q3 + 1.5 * IQR
         OutDur = XYD[mask3]
         OutStrt = XYS[mask3]
+        OutDay = XYW[mask3]
 
         fig, axs = plt.subplots(1, 2, figsize=(20, 7))
         axs[0].hist(OutStrt, bins=24, color='#697cb8', edgecolor='black', alpha=1, density=True)
-        axs[0].set_xlabel('Hour of day')
-        axs[0].set_ylabel('Number of Outage Events')
+        axs[0].set_xlabel('Hour of Day')
+        axs[0].set_ylabel('Frequency of Outage Events')
         axs[0].set_xticks(range(24), range(24))
 
-        axs[1].hist(OutDur, bins=100, color='orange', density=True)
-        axs[1].set_xlabel('Duration of Event (Hours)')
-        axs[1].set_ylabel('Number of Outage Events')
+        axs[1].hist(OutDay, bins=7, width=0.5, edgecolor='black', color='orange', density=True)
+        axs[1].set_xlabel('Week Day of Events')
+        axs[1].set_ylabel('Frequency of Outage Events')
+        axs[1].set_xticks(range(1, 8), ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
 
         plt.savefig('IMG/outage_start.jpg', dpi=300, bbox_inches='tight')
 

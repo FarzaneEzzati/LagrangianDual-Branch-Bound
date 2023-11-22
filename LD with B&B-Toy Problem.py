@@ -468,5 +468,5 @@ if __name__ == '__main__':
                         print('All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
     print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
     with open('LD_with_B&B_Solutions.pkl', 'wb') as handle:
-        pickle.dump(X_LB, handle)
+        pickle.dump([X_LB, NodeItr, Z_LB, ], handle)
     handle.close()
