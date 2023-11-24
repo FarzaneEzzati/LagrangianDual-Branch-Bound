@@ -281,7 +281,7 @@ class Model:
                                               GenerPrice * PV[(t, g)] - quicksum([LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
                                               for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost6 = quicksum(l[s-1][d - 1] * (X[(s, d)] - X[(s+1, d)]) for s in RNGScenMinus for d in RNGDvc)
-        self.model.setObjective(Cost1 + Cost2 + Cost3 + Cost4 + Cost5 + Cost6, sense=GRB.MINIMIZE)
+        self.model.setObjective(Cost1 + 4 * (Cost2 + Cost3 + Cost4 + Cost5) + Cost6, sense=GRB.MINIMIZE)
         self.model.update()
 
     def UpdateObjective(self, l):
