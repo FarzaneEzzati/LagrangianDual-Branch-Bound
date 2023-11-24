@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import gurobipy
 from gurobipy import quicksum, GRB
+import time
 
 env = gurobipy.Env()
 env.setParam('OutputFlag', 0)
@@ -431,6 +432,7 @@ if __name__ == '__main__':
     NodeItr = 0
 
     # START THE ALGORITHM
+    start = time.time()
     while len(PSet) > 0:
         NodeItr += 1
         print(
@@ -557,6 +559,7 @@ if __name__ == '__main__':
                                 print(
                                     'All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
     print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
+    print(f'Running Time: {time.time() - start}')
     # Solve the model with optimal X to obtain all variables for plotting
     OptMdl = Model()
     OptMdl.Build()
