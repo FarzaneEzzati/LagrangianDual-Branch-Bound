@@ -48,8 +48,8 @@ class Model:
         self.C = {1: 600, 2: 2780 / 4, 3: 150}
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
-        UB = [60, 30, 10]
-        LB = [10, 10, 0]
+        UB = [166, 143, 666]
+        LB = [40, 40, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -63,6 +63,7 @@ class Model:
         self.DGCurPrice = (alpha + beta) * self.GridPlus
         SOC_UB, SOC_LB = 0.9, 0.1
         ES_gamma = 0.85
+        self.DG_gamma = 0.4
         Eta_c = 0.8
         Eta_i = 0.9
 
@@ -275,11 +276,12 @@ class Model:
         GenerPrice = self.GenerPrice
         VoLL = self.VoLL
         CO = self.CO
+        DG_gamma = self.DG_Gamma
 
         Cost1 = quicksum([Prob[s] * quicksum([X[(s, j)] * (CO[j]) for j in RNGDvc]) for s in RNGScen])
         Cost2 = quicksum([Prob[s] * quicksum([PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)]) for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost3 = quicksum([Prob[s] * quicksum([VoLL[h - 1] * Y_LL[(h, t, g, s)] for h in RNGHouse for t in RNGTime for g in RNGMonth]) for s in RNGScen])
-        Cost4 = quicksum([Prob[s] * FuelPrice * quicksum([Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
+        Cost4 = quicksum([Prob[s] * FuelPrice * DG_gamma * quicksum([Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
                                                  Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost5 = quicksum([Prob[s] * quicksum([GridPlus * Y_GridPlus[(t, g, s)] - GridMinus * Y_GridMinus[(t, g, s)] -
                                               GenerPrice * PV[(t, g)] - quicksum([LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
@@ -405,8 +407,10 @@ class Model:
                          self.Ytg_indices, self.Yh_indices, self.RNGTime, zstar], handle)
         handle.close()
 
-if __name__ == '__main__':
 
+if __name__ == '__main__':
+    rho = 0.2
+    yo = 0.2
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
     OriginalModel = Model()
     OriginalModel.Build()
@@ -419,17 +423,18 @@ if __name__ == '__main__':
 
     # Writing the algorithm
     Z_LB = -float('inf')
-    X_LB = 0
+    X_LB = []
 
     Z_P = float('inf')
-    X_P = 0
+    X_P = []
 
     # Set PP = {MIP}
     PSet = [model]
     PObjectives = [0]
     P_LB = model
-    P_P = model
     NodeItr = 0
+    OptimalFound = False
+    subgrad_itr = []
 
     # START THE ALGORITHM
     start = time.time()
@@ -470,7 +475,7 @@ if __name__ == '__main__':
             itr = 0
             ContinueWhile = True
             while ContinueWhile:
-                lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=0.6, yo=0.3)
+                lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=rho, yo=yo)
                 Pmodel.UpdateObjective(l=lmda)
                 itr += 1
                 if np.array_equal(lmda, lmdaOld):
@@ -480,13 +485,14 @@ if __name__ == '__main__':
                     X_values = OutPut[0]
                     Objective = OutPut[1]
                 lmdaOld = copy.copy(lmda)
-            SelectedPObj = Objective
+            Z_LD = Objective
 
-            print(f'Z_LD after applying Subgradient ({itr} iterations) is: {SelectedPObj:0.3f}')
+            print(f'Z_LD after applying Subgradient ({itr} iterations) is: {Z_LD:0.3f}')
             print(f'{5 * "="}> Obtained X is: {X_values}')
+            subgrad_itr.append(itr)
 
             # BOUNDING STEP
-            if SelectedPObj <= Z_LB:  # Z_LD < Z_LB =>  True: remove P from PSet, False: Continue for branching if needed
+            if Z_LD <= Z_LB:  # Z_LD < Z_LB =>  True: remove P from PSet, False: Continue for branching if needed
                 print('Pmodel is removed from PSet due to Z_LD < Z_LB')
             else:
                 print('Pmodel is checked for identicality of the solutions')
@@ -494,22 +500,17 @@ if __name__ == '__main__':
                 if CheckIden == len(l):  # Solutions are identical
                     print(f'Solutions are identical. Lower bound updated. Selected X {X_values[0]}')
                     # Update zLowerBound if required
-                    if SelectedPObj == Z_P:
+                    if Z_LD == Z_P:
                             X_LB = XBarR
                             Z_LB = Z_XBarR
                             print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
                             PSet = []
 
-                    elif SelectedPObj >= Z_LB:
-                        if SelectedPObj <= Z_P:
-                            Z_LB = SelectedPObj
+                    elif Z_LD >= Z_LB:
+                        if Z_LD <= Z_P:
+                            Z_LB = Z_LD
                             X_LB = X_values[0]
                             P_LB = Pmodel
-                        else:
-                            X_LB = copy.copy(X_P)
-                            Z_LB = copy.copy(Z_P)
-                            X_P = X_values[0]
-                            Z_P = SelectedPObj
 
                 else:  # Solutions differ
                     XBar = Pmodel.GetXBar(X_values)
@@ -530,36 +531,44 @@ if __name__ == '__main__':
                             Z_LB = Z_XBarR
                             print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
                             PSet = []
+                            OptimalFound = True
                         else:
-                            if Z_XBarR < Z_P:
+                            if Z_XBarR >= Z_LB:
+                                if Z_XBarR <= Z_P:
+                                    Z_P = Z_XBarR
+                                    X_P = XBarR
+                            else:
                                 Z_P = Z_XBarR
                                 X_P = XBarR
-                                P_P = Pmodel
+                                Z_LB = -float('inf')
+                                X_LB = []
 
-                            # BRANCHING STEP
-                            print(f'Solutions are not identical. Branching for XBar {XBar}')
-                            flag = True
-                            for element in range(len(XBar)):
-                                if math.floor(XBar[element]) != XBar[element]:
-                                    model1 = Model()
-                                    model1.Build()
-                                    model1.UpdateObjective(l)
-                                    model1.BranchFloor(x_index=element + 1, bound=math.floor(XBar[element]))
-                                    PSet.append(model1)
+                    # BRANCHING STEP
+                    if OptimalFound == True:
+                        print(f'Solutions are not identical. Branching for XBar {XBar}')
+                        flag = True
+                        for element in range(len(XBar)):
+                            if math.floor(XBar[element]) != XBar[element]:
+                                model1 = Model()
+                                model1.Build()
+                                model1.UpdateObjective(l)
+                                model1.BranchFloor(x_index=element + 1, bound=math.floor(XBar[element]))
+                                PSet.append(model1)
 
-                                    model2 = Model()
-                                    model2.Build()
-                                    model2.UpdateObjective(l)
-                                    model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element]) + 1)
-                                    PSet.append(model2)
+                                model2 = Model()
+                                model2.Build()
+                                model2.UpdateObjective(l)
+                                model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element]) + 1)
+                                PSet.append(model2)
 
-                                    flag = False
-                                    break
-                            if flag:
-                                print(
-                                    'All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
+                                flag = False
+                                break
+                        if flag:
+                            print(
+                                'All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
     print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
     print(f'Running Time: {time.time() - start}')
+    print(f'Average sub-grad iterations: {np.sum(subgrad_itr) / NodeItr}')
     # Solve the model with optimal X to obtain all variables for plotting
     OptMdl = Model()
     OptMdl.Build()
