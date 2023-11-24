@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import gurobipy
 from gurobipy import quicksum, GRB
+import time
 env = gurobipy.Env()
 env.setParam('OutputFlag', 0)
 
@@ -399,7 +400,7 @@ class Model:
         handle.close()
 
 
-if __name__ == '__main__':
+def RunAlgo(rho, yo):
     l = [[0, 0, 0], [0, 0, 0]]
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
     OriginalModel = Model()
@@ -413,7 +414,7 @@ if __name__ == '__main__':
     # Writing the algorithm
     Z_LB = -float('inf')
     X_LB = 0
-    
+
     Z_P = float('inf')
     X_P = 0
 
@@ -423,11 +424,14 @@ if __name__ == '__main__':
     P_LB = model
     P_P = model
     NodeItr = 0
+    sub_gard_itr = []
 
     # START THE ALGORITHM
+    start = time.time()
     while len(PSet) > 0:
         NodeItr += 1
-        print(f'\n{20 * "="} Node Iteration {NodeItr} - Best Lower Bound: {Z_LB:0.3f} and Best Primal Bound {Z_P:0.3f} {20 * "="}')
+        print(
+            f'\n{20 * "="} Node Iteration {NodeItr} - Best Lower Bound: {Z_LB:0.3f} and Best Primal Bound {Z_P:0.3f} {20 * "="}')
         print(f'{len(PSet)} model(s) are active.')
 
         # This two empty sets are intended to save new branched models and add it to PSet when the P is removed.
@@ -448,7 +452,7 @@ if __name__ == '__main__':
             Objective = OutPut[1]
             print('Selected node feasible, Lagrangian Dual is applied.')
             print(f'Z_LD before applying Subgradient is: {Objective:0.3f}')
-            print(f'{5*"="}> Obtained X is: {X_values}')
+            print(f'{5 * "="}> Obtained X is: {X_values}')
 
             if NodeItr == 1:
                 RootLmda = l
@@ -460,7 +464,7 @@ if __name__ == '__main__':
             itr = 0
             ContinueWhile = True
             while ContinueWhile:
-                lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=0.6, yo=0.3)
+                lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=rho, yo=yo)
                 Pmodel.UpdateObjective(l=lmda)
                 itr += 1
                 if np.array_equal(lmda, lmdaOld):
@@ -471,7 +475,7 @@ if __name__ == '__main__':
                     Objective = OutPut[1]
                 lmdaOld = copy.copy(lmda)
             SelectedPObj = Objective
-
+            sub_gard_itr.append(itr)
             print(f'Z_LD after applying Subgradient ({itr} iterations) is: {SelectedPObj:0.3f}')
             print(f'{5 * "="}> Obtained X is: {X_values}')
 
@@ -495,7 +499,7 @@ if __name__ == '__main__':
                             X_P = X_values[0]
                             Z_P = SelectedPObj
 
-                else:   # Solutions differ
+                else:  # Solutions differ
                     XBar = Pmodel.GetXBar(X_values)
                     XBarR = [math.floor(x) for x in XBar]
 
@@ -507,7 +511,8 @@ if __name__ == '__main__':
                         print('Model with XBarR is not feasible.')
                     else:
                         Z_XBarR = OutPut[1]
-                        print(f'Model with XBarR is feasible. Z_XBarR {Z_XBarR:0.3f} and Z_P {Z_P:0.3f}. Selected X {OutPut[0]}')
+                        print(
+                            f'Model with XBarR is feasible. Z_XBarR {Z_XBarR:0.3f} and Z_P {Z_P:0.3f}. Selected X {OutPut[0]}')
                         if Z_XBarR == Z_LB:
                             X_LB = XBarR
                             Z_LB = Z_XBarR
@@ -533,7 +538,7 @@ if __name__ == '__main__':
                             model2 = Model()
                             model2.Build()
                             model2.UpdateObjective(l)
-                            model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element])+1)
+                            model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element]) + 1)
                             PSet.append(model2)
 
                             flag = False
@@ -541,9 +546,25 @@ if __name__ == '__main__':
                     if flag:
                         print('All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
     print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
+    run_time = time.time()-start
+    return X_LB, run_time, np.mean(sub_gard_itr)
 
+if __name__ == '__main__':
+    rho = [0.2, 0.4, 0.6, 0.8]
+    yo = [0.2, 0.4, 0.6, 0.8]
+    X_LB = {}
+    run_time = {}
+    sub_grad_itr = {}
+
+    for r in rho:
+        for y in yo:
+            X_LB, rt, sbi = RunAlgo(r, y)
+            run_time[(r, y)] = rt
+            sub_grad_itr[(r, y)] = sbi
+    print(run_time)
+    print(sub_grad_itr)
     # Solve the model with optimal X to obtain all variables for plotting
-    OptMdl = Model()
+    '''OptMdl = Model()
     OptMdl.Build()
-    OptMdl.OptSolve(X_LB)
+    OptMdl.OptSolve(X_LB)'''
 

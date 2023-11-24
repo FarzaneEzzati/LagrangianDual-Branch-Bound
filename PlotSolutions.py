@@ -27,7 +27,7 @@ if __name__ == '__main__':
     handle.close()
 
 
-    fig1, axs = plt.subplots(1, 2, figsize=(20, 7), dpi=200)
+    fig1, axs = plt.subplots(1, 2, figsize=(40, 7), dpi=200)
     axs[0].bar(RNGT, l1[f'Month {g}'].iloc[0:len(RNGT)], width=w, linestyle='--', edgecolor='black', facecolor='white',
                label='Demand 1')
     axs[0].bar(RNGT, [y_lh[(1, t, g, s)] for t in RNGT], width=w, linestyle='-', facecolor='green',
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     axs[1].legend()
     plt.savefig('IMG/SolutionPlotLarge-Demands.jpg', bbox_inches='tight')
 
-    fig2 = plt.figure(figsize=(30, 7))
+    fig2 = plt.figure(figsize=(40, 7), dpi=300)
     plt.bar(RNGT, np.add(l2[f'Month {g}'].iloc[0:len(RNGT)], l1[f'Month {g}'].iloc[0:len(RNGT)]),
             width=w, linestyle='--', edgecolor='black', facecolor='white', label='Demand')
     plt.bar(RNGT, [Eta_i * y_esl[(t, g, s)]for t in RNGT], color='#35824a', width=w, label='ES to Load')
