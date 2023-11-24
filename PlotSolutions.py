@@ -16,10 +16,10 @@ def geneCases():
 if __name__ == '__main__':
     solar, l1, l2 = geneCases()
     w = 0.4
-    s = 2
-    g = 1
+    s = 4 # Scenario number
+    g = 6 # Month number
     Eta_i = 0.9
-    with open('ToySolution.pkl', 'rb') as handle:
+    with open('Solution.pkl', 'rb') as handle:
         x_opt, y_pves, y_dges, y_grides, \
             y_pvl, y_dgl, y_esl, y_gridl, y_l, y_lh, y_ll,\
             y_pvcur,y_dgcur, y_pvgrid, y_dggrid, y_esgrid, \
@@ -47,11 +47,11 @@ if __name__ == '__main__':
     axs[1].set_xlabel('Hour of Week')
     axs[1].set_ylabel('kW')
     axs[1].legend()
-    plt.savefig('IMG/SolutionPlot-Demands.jpg', bbox_inches='tight')
+    plt.savefig('IMG/SolutionPlotLarge-Demands.jpg', bbox_inches='tight')
 
     fig2 = plt.figure(figsize=(30, 7))
     plt.bar(RNGT, np.add(l2[f'Month {g}'].iloc[0:len(RNGT)], l1[f'Month {g}'].iloc[0:len(RNGT)]),
-            width=w+0.05, linestyle='--', edgecolor='black', facecolor='white', label='Demand')
+            width=w, linestyle='--', edgecolor='black', facecolor='white', label='Demand')
     plt.bar(RNGT, [Eta_i * y_esl[(t, g, s)]for t in RNGT], color='#35824a', width=w, label='ES to Load')
 
     plt.bar(RNGT, [Eta_i * y_pvl[(t, g, s)]for t in RNGT], color='#c7a644', width=w,
@@ -67,6 +67,6 @@ if __name__ == '__main__':
     plt.legend()
     plt.xlabel('Hour of Week')
     plt.ylabel('kW')
-    plt.savefig('IMG/SolutionPlot-Devices.jpg', bbox_inches='tight')
+    plt.savefig('IMG/SolutionPlotLarge-Devices.jpg', bbox_inches='tight')
 
 
