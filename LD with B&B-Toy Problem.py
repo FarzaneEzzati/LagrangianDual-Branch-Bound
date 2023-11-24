@@ -45,8 +45,8 @@ class Model:
         self.C = {1: 600, 2: 2780/4, 3: 150}
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365*24) for i in (1, 2, 3)}
-        UB = [60, 30, 10]
-        LB = [10, 10, 0]
+        UB = [20, 20, 10]
+        LB = [4, 4, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -154,14 +154,14 @@ class Model:
         # Balance of power flow
         model.addConstrs(E[(t + 1, g, s)] == E[(t, g, s)] +
                          ES_gamma * (Y_PVES[(t, g, s)] + Y_DGES[(t, g, s)] + Eta_c * Y_GridES[(t, g, s)]) -
-                         (Y_ESL[(t, g, s)] + Y_ESGrid[(t, g, s)]) / ES_gamma
+                         Eta_i * (Y_ESL[(t, g, s)] + Y_ESGrid[(t, g, s)]) / ES_gamma
                          for t in RNGTimeMinus for s in RNGScen for g in RNGMonth)
         # The share of Load
         model.addConstrs(Y_L[(t, g, s)] == Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) +
                          Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Y_L[(t, g, s)]
+        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) == Y_L[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse)
@@ -176,7 +176,7 @@ class Model:
         model.addConstrs(Y_PVL[(t, g, s)] + Y_PVES[(t, g, s)] + Y_PVCur[(t, g, s)] + Y_PVGrid[(t, g, s)] == PV[(t, g)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_GridPlus[(t, g, s)] == Eta_c * Y_GridES[(t, g, s)] + Y_GridL[(t, g, s)]
+        model.addConstrs(Y_GridPlus[(t, g, s)] == Y_GridES[(t, g, s)] + Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_GridMinus[(t, g, s)] == Eta_i * (Y_ESGrid[(t, g, s)] + Y_PVGrid[(t, g, s)] + Y_DGGrid[(t, g, s)])
@@ -394,8 +394,8 @@ class Model:
 
         with open('ToySolution.pkl', 'wb') as handle:
             pickle.dump([x_opt, y_pves, y_dges, y_grides, y_pvl, y_dgl, y_esl, y_gridl, y_l, y_lh, y_ll, y_pvcur,
-                         y_dgcur, y_pvgrid, y_dggrid, y_esgrid, y_gridplus, y_gridminus, e, pv, self.Ytg_indices,
-                         self.Ytg_indices, self.Yh_indices, zstar], handle)
+                         y_dgcur, y_pvgrid, y_dggrid, y_esgrid, y_gridplus, y_gridminus, e, pv, self.Y_indices,
+                         self.Ytg_indices, self.Yh_indices, self.RNGTime, zstar], handle)
         handle.close()
 
 

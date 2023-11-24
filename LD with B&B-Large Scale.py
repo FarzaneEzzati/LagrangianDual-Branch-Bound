@@ -156,14 +156,14 @@ class Model:
         # Balance of power flow
         model.addConstrs(E[(t + 1, g, s)] == E[(t, g, s)] +
                          ES_gamma * (Y_PVES[(t, g, s)] + Y_DGES[(t, g, s)] + Eta_c * Y_GridES[(t, g, s)]) -
-                         (Y_ESL[(t, g, s)] + Y_ESGrid[(t, g, s)]) / ES_gamma
+                         Eta_i * (Y_ESL[(t, g, s)] + Y_ESGrid[(t, g, s)]) / ES_gamma
                          for t in RNGTimeMinus for s in RNGScen for g in RNGMonth)
         # The share of Load
         model.addConstrs(Y_L[(t, g, s)] == Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) +
                          Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Y_L[(t, g, s)]
+        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) == Y_L[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse)
@@ -178,11 +178,12 @@ class Model:
         model.addConstrs(Y_PVL[(t, g, s)] + Y_PVES[(t, g, s)] + Y_PVCur[(t, g, s)] + Y_PVGrid[(t, g, s)] == PV[(t, g)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_GridPlus[(t, g, s)] == Eta_c * Y_GridES[(t, g, s)] + Y_GridL[(t, g, s)]
+        model.addConstrs(Y_GridPlus[(t, g, s)] == Y_GridES[(t, g, s)] + Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_GridMinus[(t, g, s)] == Eta_i * (Y_ESGrid[(t, g, s)] + Y_PVGrid[(t, g, s)] + Y_DGGrid[(t, g, s)])
-                         for t in RNGTime for s in RNGScen for g in RNGMonth)
+        model.addConstrs(
+            Y_GridMinus[(t, g, s)] == Eta_i * (Y_ESGrid[(t, g, s)] + Y_PVGrid[(t, g, s)] + Y_DGGrid[(t, g, s)])
+            for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_DGL[(t, g, s)] + Y_DGES[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] == X[(s, 3)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
