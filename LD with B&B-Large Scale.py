@@ -48,14 +48,14 @@ class Model:
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
         UB = [60, 30, 10]
-        LB = [2, 2, 0]
+        LB = [10, 10, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
         self.GridMinus = alpha * self.GridPlus
         self.LoadPrice = self.GridPlus
         self.GenerPrice = beta * self.GridPlus
-        self.VoLL = np.array([1.4, 1.8, 2.1]) * self.GridPlus
+        self.VoLL = np.array([2.1, 1.8, 1.4]) * self.GridPlus
         self.PVSellPrice = (alpha + beta) * self.GridPlus
         self.DGSellPrice = self.PVSellPrice
         self.PVCurPrice = (alpha + beta) * self.GridPlus
@@ -66,12 +66,12 @@ class Model:
         Eta_i = 0.9
 
         # Ranges need to be used
-        T = 73
+        T = 168
         SCount = len(scenarios)
         DVCCount = 3
-        MCount = 2
+        MCount = 12
         HCount = 2
-        OutageStart = 1
+        OutageStart = 3 * 24 + 15
         RNGDvc = range(1, DVCCount + 1)
         RNGTime = range(1, T + 1)
         RNGTimeMinus = range(1, T)
