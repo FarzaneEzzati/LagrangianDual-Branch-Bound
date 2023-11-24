@@ -276,7 +276,7 @@ class Model:
         GenerPrice = self.GenerPrice
         VoLL = self.VoLL
         CO = self.CO
-        DG_gamma = self.DG_Gamma
+        DG_gamma = self.DG_gamma
 
         Cost1 = quicksum([Prob[s] * quicksum([X[(s, j)] * (CO[j]) for j in RNGDvc]) for s in RNGScen])
         Cost2 = quicksum([Prob[s] * quicksum([PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)]) for t in RNGTime for g in RNGMonth]) for s in RNGScen])
