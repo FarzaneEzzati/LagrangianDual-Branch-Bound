@@ -26,6 +26,7 @@ if __name__ == '__main__':
             y_pvcur,y_dgcur, y_pvgrid, y_dggrid, y_esgrid, \
             y_gridplus, y_gridminus, e, pv, y_indices, ytg_indices, yh_indices, RNGT, zstar = pickle.load(handle)
     handle.close()
+    print(f'Optimal Solution is: {x_opt}')
 
 
     fig1, axs = plt.subplots(1, 2, figsize=(20, 7), dpi=200)

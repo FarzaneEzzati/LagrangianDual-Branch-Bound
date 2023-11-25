@@ -49,7 +49,7 @@ class Model:
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
         UB = [166, 80, 40]
-        LB = [20, 4, 0]
+        LB = [20, 10, 2]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -160,16 +160,15 @@ class Model:
                          for t in RNGTimeMinus for s in RNGScen for g in RNGMonth)
         
         # The share of Load
-        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) +
-                         Y_GridL[(t, g, s)]
-                         for t in RNGTime for s in RNGScen for g in RNGMonth)
+        model.addConstrs(quicksum(Load[(h, t, g)] for h in RNGHouse) >= 
+                        Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) + Y_GridL[(t, g, s)]
+                        for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Load[(h, t, g)] for h in RNGHouse)
-                         for t in RNGTime for s in RNGScen for g in RNGMonth)
-
-        model.addConstrs(Y_LH[(h, t, g, s)] + Y_LL[(h, t, g, s)] <= Load[(h, t, g)]
+        model.addConstrs(Y_LH[(h, t, g, s)] <= Load[(h, t, g)]
                          for h in RNGHouse for t in RNGTime for s in RNGScen for g in RNGMonth)
-
+        
+        model.addConstrs(quicksum(Y_LH[(h, t, g, s)]for h in RNGHouse) == Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) + Y_GridL[(t, g, s)]
+                        for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_PVL[(t, g, s)] + Y_PVES[(t, g, s)] + Y_PVCur[(t, g, s)] + Y_PVGrid[(t, g, s)] == PV_unit[(t, g)] * X[(s, 2)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
@@ -209,6 +208,7 @@ class Model:
         self.Y_GridL = Y_GridL
         self.Y_LH = Y_LH
         self.Y_LL = Y_LL
+        self.Load = Load
         self.Y_PVCur = Y_PVCur
         self.Y_DGCur = Y_DGCur
         self.Y_PVGrid = Y_PVGrid
@@ -225,9 +225,9 @@ class Model:
         self.RNGTime = RNGTime
         self.RNGMonth = RNGMonth
         self.RNGHouse = RNGHouse
-        self.model.setParam(GRB.Param.Cuts, 3)
+        '''self.model.setParam(GRB.Param.Cuts, 3)
         self.model.setParam(GRB.Param.Heuristics, 1)
-        self.model.setParam(GRB.Param.ImpliedCuts, 2)
+        self.model.setParam(GRB.Param.ImpliedCuts, 2)'''
         self.model.update()
         self.SetObjective(lmda)
         
@@ -250,6 +250,7 @@ class Model:
         Y_GridL = self.Y_GridL
         Y_LH = self.Y_LH
         Y_LL = self.Y_LL
+        Load = self.Load
         Y_PVCur = self.Y_PVCur
         Y_DGCur = self.Y_DGCur
         Y_PVGrid = self.Y_PVGrid
@@ -278,14 +279,14 @@ class Model:
 
         Cost1 = quicksum([Prob[s] * quicksum([X[(s, j)] * (CO[j]) for j in RNGDvc]) for s in RNGScen])
         Cost2 = quicksum([Prob[s] * quicksum([PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)]) for t in RNGTime for g in RNGMonth]) for s in RNGScen])
-        Cost3 = quicksum([Prob[s] * quicksum([VoLL[h - 1] * Y_LL[(h, t, g, s)] for h in RNGHouse for t in RNGTime for g in RNGMonth]) for s in RNGScen])
+        Cost3 = quicksum([Prob[s] * quicksum([VoLL[h - 1] * (Load[(h, t, g)] - Y_LH[(h, t, g, s)]) for h in RNGHouse for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost4 = quicksum([Prob[s] * FuelPrice * DG_gamma * quicksum([Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
                                                  Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost5 = quicksum([Prob[s] * quicksum([GridPlus * Y_GridPlus[(t, g, s)] - GridMinus * Y_GridMinus[(t, g, s)] -
                                               GenerPrice * X[(s, 2)] * PV_unit[(t, g)] - quicksum([LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
                                               for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost6 = quicksum(l[s-1][d - 1] * (X[(s, d)] - X[(s+1, d)]) for s in RNGScenMinus for d in RNGDvc)
-        self.model.setObjective(Cost1 + 4 * (Cost2 + Cost3 + Cost4 + Cost5) + Cost6, sense=GRB.MINIMIZE)
+        self.model.setObjective(Cost1 + (12/len(RNGMonth)) * 4 * (Cost2 + Cost3 + Cost4 + Cost5) + Cost6, sense=GRB.MINIMIZE)
         self.model.update()
 
     def UpdateObjective(self, l):
@@ -391,7 +392,7 @@ class Model:
 
         for h, t, g, s in self.Yh_indices:
             y_lh[(h, t, g, s)] = self.Y_LH[(h, t, g, s)].x
-            y_ll[(h, t, g, s)] = self.Y_LL[(h, t, g, s)].x
+            y_ll[(h, t, g, s)] = self.Load[(h, t, g)]-self.Y_LH[(h, t, g, s)].x
 
         for t, g in self.Ytg_indices:
             pv[(t, g)] = self.PV_unit[(t, g)] * x_opt[1]
@@ -417,160 +418,169 @@ if __name__ == '__main__':
     OriginalModel.Size()
     l = [[0, 0, 0] for s in range(OriginalModel.GetScenariosLength()-1)]
     OriginalModel.SetObjective(l)
+    
+    
+    answer = eval(input('Wanna run the algorithm (1) or solve with optimal solution x* (2): '))
+    if answer == 1:
+        model = Model()
+        model.Build()
+        model.SetObjective(l)
 
-    model = Model()
-    model.Build()
-    model.SetObjective(l)
+        # Writing the algorithm
+        Z_LB = -float('inf')
+        X_LB = []
 
-    # Writing the algorithm
-    Z_LB = -float('inf')
-    X_LB = []
+        Z_P = float('inf')
+        X_P = []
 
-    Z_P = float('inf')
-    X_P = []
+        # Set PP = {MIP}
+        PSet = [model]
+        PObjectives = [0]
+        P_LB = model
+        NodeItr = 0
+        OptimalNotFound = True
+        subgrad_itr = []
 
-    # Set PP = {MIP}
-    PSet = [model]
-    PObjectives = [0]
-    P_LB = model
-    NodeItr = 0
-    OptimalNotFound = True
-    subgrad_itr = []
+        # START THE ALGORITHM
+        start = time.time()
+        while len(PSet) > 0:
+            NodeItr += 1
+            print(
+                f'\n{20 * "="} Node Iteration {NodeItr} - Best Lower Bound: {Z_LB:0.3f} and Best Primal Bound {Z_P:0.3f} {20 * "="}')
+            print(f'{len(PSet)} model(s) are active.')
 
-    # START THE ALGORITHM
-    start = time.time()
-    while len(PSet) > 0:
-        NodeItr += 1
-        print(
-            f'\n{20 * "="} Node Iteration {NodeItr} - Best Lower Bound: {Z_LB:0.3f} and Best Primal Bound {Z_P:0.3f} {20 * "="}')
-        print(f'{len(PSet)} model(s) are active.')
+            # This two empty sets are intended to save new branched models and add it to PSet when the P is removed.
+            PSetTemp = []
 
-        # This two empty sets are intended to save new branched models and add it to PSet when the P is removed.
-        PSetTemp = []
+            # NODE SELECTION STEP
+            PIndex = random.choice(range(len(PSet)))
+            Pmodel = PSet[PIndex]
 
-        # NODE SELECTION STEP
-        PIndex = random.choice(range(len(PSet)))
-        Pmodel = PSet[PIndex]
+            # Solve it and then give it to the sub-gradient method if feasible
+            OutPut = Pmodel.Solve()
+            PSet.remove(PSet[PIndex])
 
-        # Solve it and then give it to the sub-gradient method if feasible
-        OutPut = Pmodel.Solve()
-        PSet.remove(PSet[PIndex])
+            if len(OutPut) == 1:
+                print(f'Selected node {OutPut[0]}, hence removed.')
 
-        if len(OutPut) == 1:
-            print(f'Selected node {OutPut[0]}, hence removed.')
-
-        else:
-            X_values = OutPut[0]
-            Objective = OutPut[1]
-            print('Selected node feasible, Lagrangian Dual is applied.')
-            print(f'Z_LD before applying Subgradient is: {Objective:0.3f}')
-            print(f'{5 * "="}> Obtained X is: {X_values}')
-
-            if NodeItr == 1:
-                RootLmda = l
-            elif NodeItr == 2:
-                RootLmda = copy.copy(lmdaOld)
-
-            lmda = RootLmda
-            lmdaOld = copy.copy(lmda)
-            itr = 0
-            ContinueWhile = True
-            while ContinueWhile:
-                lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=rho, yo=yo)
-                Pmodel.UpdateObjective(l=lmda)
-                itr += 1
-                if np.array_equal(lmda, lmdaOld):
-                    ContinueWhile = False
-                else:
-                    OutPut = Pmodel.Solve()
-                    X_values = OutPut[0]
-                    Objective = OutPut[1]
-                lmdaOld = copy.copy(lmda)
-            Z_LD = Objective
-
-            print(f'Z_LD after applying Subgradient ({itr} iterations) is: {Z_LD:0.3f}')
-            print(f'{5 * "="}> Obtained X is: {X_values}')
-            subgrad_itr.append(itr)
-
-            # BOUNDING STEP
-            if Z_LD <= Z_LB:  # Z_LD < Z_LB =>  True: remove P from PSet, False: Continue for branching if needed
-                print('Pmodel is removed from PSet due to Z_LD < Z_LB')
             else:
-                print('Pmodel is checked for identicality of the solutions')
-                CheckIden = Pmodel.CheckIdent(X_values)
-                if CheckIden == len(l):  # Solutions are identical
-                    print(f'Solutions are identical. Lower bound updated. Selected X {X_values[0]}')
-                    # Update zLowerBound if required
-                    if Z_LD == Z_P:
-                            X_LB = XBarR
-                            Z_LB = Z_XBarR
-                            print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
-                            PSet = []
+                X_values = OutPut[0]
+                Objective = OutPut[1]
+                print('Selected node feasible, Lagrangian Dual is applied.')
+                print(f'Z_LD before applying Subgradient is: {Objective:0.3f}')
+                print(f'{5 * "="}> Obtained X is: {X_values}')
 
-                    elif Z_LD >= Z_LB:
-                        if Z_LD <= Z_P:
-                            Z_LB = Z_LD
-                            X_LB = X_values[0]
-                            P_LB = Pmodel
+                if NodeItr == 1:
+                    RootLmda = l
+                elif NodeItr == 2:
+                    RootLmda = copy.copy(lmdaOld)
 
-                else:  # Solutions differ
-                    XBar = Pmodel.GetXBar(X_values)
-                    XBarR = [math.ceil(x) for x in XBar]
-
-                    # Update Z_LB only if you have found an identical solution before. Otherwise, ignore it.
-                    print(f'Solutions are not identical. XBarR is {XBarR}.')
-                    # Get cx + sum(pqy) for XR. Note that it must be applied on the primal problem without any bounds added.
-                    OutPut = OriginalModel.FixVarSolve(XBarR)
-                    if len(OutPut) == 1:
-                        print(f'Selected node {OutPut[0]}, hence removed.')
+                lmda = RootLmda
+                lmdaOld = copy.copy(lmda)
+                itr = 0
+                ContinueWhile = True
+                while ContinueWhile:
+                    lmda = Pmodel.UpdateLmda(iteration=itr, solution=X_values, old_lambda=lmda, step_size=rho, yo=yo)
+                    Pmodel.UpdateObjective(l=lmda)
+                    itr += 1
+                    if np.array_equal(lmda, lmdaOld):
+                        ContinueWhile = False
                     else:
-                        Z_XBarR = OutPut[1]
-                        print(
-                            f'Model with XBarR is feasible. Z_XBarR {Z_XBarR:0.3f} and Z_P {Z_P:0.3f}. Selected X {OutPut[0]}')
-                        if Z_XBarR == Z_LB:
-                            X_LB = XBarR
-                            Z_LB = Z_XBarR
-                            print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
-                            PSet = []
-                            OptimalNotFound = False
+                        OutPut = Pmodel.Solve()
+                        X_values = OutPut[0]
+                        Objective = OutPut[1]
+                    lmdaOld = copy.copy(lmda)
+                Z_LD = Objective
+
+                print(f'Z_LD after applying Subgradient ({itr} iterations) is: {Z_LD:0.3f}')
+                print(f'{5 * "="}> Obtained X is: {X_values}')
+                subgrad_itr.append(itr)
+
+                # BOUNDING STEP
+                if Z_LD <= Z_LB:  # Z_LD < Z_LB =>  True: remove P from PSet, False: Continue for branching if needed
+                    print('Pmodel is removed from PSet due to Z_LD < Z_LB')
+                else:
+                    print('Pmodel is checked for identicality of the solutions')
+                    CheckIden = Pmodel.CheckIdent(X_values)
+                    if CheckIden == len(l):  # Solutions are identical
+                        print(f'Solutions are identical.')
+                        # Update zLowerBound if required
+                        if Z_LD == Z_P:
+                                X_LB = XBarR
+                                Z_LB = Z_XBarR
+                                print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
+                                PSet = []
+
+                        elif Z_LD >= Z_LB:
+                            if Z_LD <= Z_P:
+                                print('Lower bound updated.')
+                                Z_LB = Z_LD
+                                X_LB = X_values[0]
+                                P_LB = Pmodel
+
+                    else:  # Solutions differ
+                        XBar = Pmodel.GetXBar(X_values)
+                        XBarR = [math.ceil(x) for x in XBar]
+
+                        # Update Z_LB only if you have found an identical solution before. Otherwise, ignore it.
+                        print(f'Solutions are not identical. XBarR is {XBarR}.')
+                        # Get cx + sum(pqy) for XR. Note that it must be applied on the primal problem without any bounds added.
+                        OutPut = OriginalModel.FixVarSolve(XBarR)
+                        if len(OutPut) == 1:
+                            print(f'Selected node {OutPut[0]}, hence removed.')
                         else:
-                            if Z_XBarR >= Z_LB:
-                                if Z_XBarR <= Z_P:
+                            Z_XBarR = OutPut[1]
+                            print(
+                                f'Model with XBarR is feasible. Z_XBarR {Z_XBarR:0.3f} and Z_P {Z_P:0.3f}. Selected X {OutPut[0]}')
+                            if Z_XBarR == Z_LB:
+                                X_LB = XBarR
+                                Z_LB = Z_XBarR
+                                print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
+                                PSet = []
+                                OptimalNotFound = False
+                            else:
+                                if Z_XBarR >= Z_LB:
+                                    if Z_XBarR <= Z_P:
+                                        Z_P = Z_XBarR
+                                        X_P = XBarR
+                                else:
                                     Z_P = Z_XBarR
                                     X_P = XBarR
-                            else:
-                                Z_P = Z_XBarR
-                                X_P = XBarR
-                                Z_LB = -float('inf')
-                                X_LB = []
+                                    Z_LB = -float('inf')
+                                    X_LB = []
 
-                    # BRANCHING STEP
-                    if OptimalNotFound:
-                        print(f'Solutions are not identical. Branching for XBar {XBar}')
-                        flag = True
-                        for element in range(len(XBar)):
-                            if math.floor(XBar[element]) != XBar[element]:
-                                model1 = Model()
-                                model1.Build()
-                                model1.UpdateObjective(l)
-                                model1.BranchFloor(x_index=element + 1, bound=math.floor(XBar[element]))
-                                PSet.append(model1)
+                        # BRANCHING STEP
+                        if OptimalNotFound:
+                            print(f'Solutions are not identical. Branching for XBar {XBar}')
+                            flag = True
+                            for element in range(len(XBar)):
+                                if math.floor(XBar[element]) != XBar[element]:
+                                    model1 = Model()
+                                    model1.Build()
+                                    model1.UpdateObjective(l)
+                                    model1.BranchFloor(x_index=element + 1, bound=math.floor(XBar[element]))
+                                    PSet.append(model1)
 
-                                model2 = Model()
-                                model2.Build()
-                                model2.UpdateObjective(l)
-                                model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element]) + 1)
-                                PSet.append(model2)
+                                    model2 = Model()
+                                    model2.Build()
+                                    model2.UpdateObjective(l)
+                                    model2.BranchCeiling(x_index=element + 1, bound=math.floor(XBar[element]) + 1)
+                                    PSet.append(model2)
 
-                                flag = False
-                                break
-                        if flag:
-                            print(
-                                'All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
-    print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
-    print(f'Running Time: {time.time() - start}')
-    print(f'Average sub-grad iterations: {np.sum(subgrad_itr) / NodeItr}')
-    # Solve the model with optimal X to obtain all variables for plotting
-    OptMdl = Model()
-    OptMdl.Build()
-    OptMdl.OptSolve(X_LB)
+                                    flag = False
+                                    break
+                            if flag:
+                                print(
+                                    'All X variables obtained by one of the model in the tree are integer. NO BRANCHING')
+        print(f'Optimal Solution = {X_LB} with Z = {Z_LB}')
+        print(f'Running Time: {time.time() - start}')
+        print(f'Average sub-grad iterations: {np.sum(subgrad_itr) / NodeItr}')
+        # Solve the model with optimal X to obtain all variables for plotting
+        OptMdl = Model()
+        OptMdl.Build()
+        OptMdl.OptSolve(X_LB)
+    else:
+        xstar = [102, 55, 2]
+        OptMdl = Model()
+        OptMdl.Build()
+        OptMdl.OptSolve(xstar)
