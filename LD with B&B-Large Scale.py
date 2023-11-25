@@ -49,7 +49,7 @@ class Model:
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
         UB = [166, 80, 40]
-        LB = [40, 10, 0]
+        LB = [20, 4, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -71,7 +71,7 @@ class Model:
         T = 168
         SCount = len(self.scenarios)
         DVCCount = 3
-        MCount = 12
+        MCount = 1
         HCount = 2
         OutageStart = 3 * 24 + 15
         RNGDvc = range(1, DVCCount + 1)
@@ -126,7 +126,6 @@ class Model:
         Y_ESL = model.addVars(Y_indices, name='Y_ESL')
         Y_GridL = model.addVars(Y_indices, name='Y_GridL')
 
-        Y_L = model.addVars(Y_indices, name='Y_L')
         Y_LH = model.addVars(Yh_indices, name='Y_LH')
         Y_LL = model.addVars(Yh_indices, name='Y_LL')
 
@@ -141,8 +140,6 @@ class Model:
         Y_GridMinus = model.addVars(Y_indices, name='Y_GridMinus')
 
         E = model.addVars(Y_indices, name='E')
-
-        PV = model.addVars(Ytg_indices, name='PV')
 
         u = model.addVars(Y_indices, vtype=GRB.BINARY, name='u')
 
@@ -163,23 +160,18 @@ class Model:
                          for t in RNGTimeMinus for s in RNGScen for g in RNGMonth)
         
         # The share of Load
-        model.addConstrs(Y_L[(t, g, s)] == Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) +
+        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) +
                          Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Y_L[(t, g, s)]
+        model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Load[(h, t, g)] for h in RNGHouse)
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse)
-                         for t in RNGTime for s in RNGScen for g in RNGMonth)
-
-        model.addConstrs(Y_LH[(h, t, g, s)] + Y_LL[(h, t, g, s)] == Load[(h, t, g)]
+        model.addConstrs(Y_LH[(h, t, g, s)] + Y_LL[(h, t, g, s)] <= Load[(h, t, g)]
                          for h in RNGHouse for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(PV[(t, g)] == X[(s, 2)] * PV_unit[(t, g)]
-                         for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(Y_PVL[(t, g, s)] + Y_PVES[(t, g, s)] + Y_PVCur[(t, g, s)] + Y_PVGrid[(t, g, s)] == PV[(t, g)]
+        model.addConstrs(Y_PVL[(t, g, s)] + Y_PVES[(t, g, s)] + Y_PVCur[(t, g, s)] + Y_PVGrid[(t, g, s)] == PV_unit[(t, g)] * X[(s, 2)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_GridPlus[(t, g, s)] == Y_GridES[(t, g, s)] + Y_GridL[(t, g, s)]
@@ -215,7 +207,6 @@ class Model:
         self.Y_DGL = Y_DGL
         self.Y_ESL = Y_ESL
         self.Y_GridL = Y_GridL
-        self.Y_L = Y_L
         self.Y_LH = Y_LH
         self.Y_LL = Y_LL
         self.Y_PVCur = Y_PVCur
@@ -226,7 +217,7 @@ class Model:
         self.Y_GridPlus = Y_PVGrid
         self.Y_GridMinus = Y_PVGrid
         self.E = Y_PVGrid
-        self.PV = PV
+        self.PV_unit = PV_unit
 
         self.RNGDvc = RNGDvc
         self.RNGScen = RNGScen
@@ -267,7 +258,6 @@ class Model:
         Y_ESGrid = self.Y_ESGrid
         Y_GridPlus = self.Y_GridPlus
         Y_GridMinus = self.Y_GridMinus
-        PV = self.PV
         Prob = self.Prob
         RNGDvc = self.RNGDvc
         RNGScen = self.RNGScen
@@ -284,6 +274,7 @@ class Model:
         VoLL = self.VoLL
         CO = self.CO
         DG_gamma = self.DG_gamma
+        PV_unit = self.PV_unit
 
         Cost1 = quicksum([Prob[s] * quicksum([X[(s, j)] * (CO[j]) for j in RNGDvc]) for s in RNGScen])
         Cost2 = quicksum([Prob[s] * quicksum([PVCurPrice * (Y_PVCur[(t, g, s)] + Y_DGCur[(t, g, s)]) for t in RNGTime for g in RNGMonth]) for s in RNGScen])
@@ -291,7 +282,7 @@ class Model:
         Cost4 = quicksum([Prob[s] * FuelPrice * DG_gamma * quicksum([Y_DGL[(t, g, s)] + Y_DGGrid[(t, g, s)] + Y_DGCur[(t, g, s)] +
                                                  Y_DGES[(t, g, s)] for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost5 = quicksum([Prob[s] * quicksum([GridPlus * Y_GridPlus[(t, g, s)] - GridMinus * Y_GridMinus[(t, g, s)] -
-                                              GenerPrice * PV[(t, g)] - quicksum([LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
+                                              GenerPrice * X[(s, 2)] * PV_unit[(t, g)] - quicksum([LoadPrice * Y_LH[(h, t, g, s)] for h in RNGHouse])
                                               for t in RNGTime for g in RNGMonth]) for s in RNGScen])
         Cost6 = quicksum(l[s-1][d - 1] * (X[(s, d)] - X[(s+1, d)]) for s in RNGScenMinus for d in RNGDvc)
         self.model.setObjective(Cost1 + 4 * (Cost2 + Cost3 + Cost4 + Cost5) + Cost6, sense=GRB.MINIMIZE)
@@ -385,7 +376,6 @@ class Model:
             y_esl[(t, g, s)] = self.Y_ESL[(t, g, s)].x
             y_gridl[(t, g, s)] = self.Y_GridL[(t, g, s)].x
 
-            y_l[(t, g, s)] = self.Y_L[(t, g, s)].x
 
             y_pvcur[(t, g, s)] = self.Y_PVCur[(t, g, s)].x
             y_dgcur[(t, g, s)] = self.Y_DGCur[(t, g, s)].x
@@ -404,7 +394,7 @@ class Model:
             y_ll[(h, t, g, s)] = self.Y_LL[(h, t, g, s)].x
 
         for t, g in self.Ytg_indices:
-            pv[(t, g)] = self.PV[(t, g)].x
+            pv[(t, g)] = self.PV_unit[(t, g)] * x_opt[1]
 
         zstar = self.model.ObjVal
 
@@ -414,6 +404,9 @@ class Model:
                          self.Ytg_indices, self.Yh_indices, self.RNGTime, zstar], handle)
         handle.close()
 
+    def Size(self):
+        print(self.model)
+
 
 if __name__ == '__main__':
     rho = 0.2
@@ -421,6 +414,7 @@ if __name__ == '__main__':
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
     OriginalModel = Model()
     OriginalModel.Build()
+    OriginalModel.Size()
     l = [[0, 0, 0] for s in range(OriginalModel.GetScenariosLength()-1)]
     OriginalModel.SetObjective(l)
 
