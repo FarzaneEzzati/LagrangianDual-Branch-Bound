@@ -18,7 +18,7 @@ if __name__ == '__main__':
     solar, l1, l2 = geneCases()
     w = 0.4
     s = 5  # Scenario number
-    g = 6  # Month number
+    g = 1  # Month number
     Eta_i = 0.9
     with open('Solution.pkl', 'rb') as handle:
         x_opt, y_pves, y_dges, y_grides, \
@@ -55,10 +55,10 @@ if __name__ == '__main__':
             width=w, linestyle='--', edgecolor='black', facecolor='white', label='Demand')
     plt.bar(RNGT, [Eta_i * y_esl[(t, g, s)]for t in RNGT], color='#35824a', width=w, label='ES to Load')
 
-    #plt.bar(RNGT, [Eta_i * y_pvl[(t, g, s)]for t in RNGT], color='#c7a644', width=w,
-            #bottom=[Eta_i * y_esl[(t, g, s)]for t in RNGT], label='PV to Load')
-    plt.bar(RNGT, [y_pvcur[(t, g, s)] for t in RNGT], color='orange', width=w,
-             label='PV Cur')
+    plt.bar(RNGT, [Eta_i * y_pvl[(t, g, s)]for t in RNGT], color='#c7a644', width=w,
+            bottom=[Eta_i * y_esl[(t, g, s)]for t in RNGT], label='PV to Load')
+    '''plt.bar(RNGT, [y_pvcur[(t, g, s)] for t in RNGT], color='orange', width=w,
+             label='PV Cur')'''
 
     plt.bar(RNGT, [Eta_i * y_dgl[(t, g, s)]for t in RNGT], color='#3c66b5', width=w,
             bottom=[Eta_i * (y_esl[(t, g, s)] + y_pvl[(t, g, s)]) for t in RNGT], label='DG to Load')
