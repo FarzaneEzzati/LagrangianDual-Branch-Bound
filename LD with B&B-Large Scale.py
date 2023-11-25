@@ -45,11 +45,11 @@ class Model:
         interest_rate = 0.08
         operational_rate = 0.01
         PA_factor = ((1 + interest_rate) ** Horizon - 1) / (interest_rate * (1 + interest_rate) ** Horizon)
-        self.C = {1: 600, 2: 2780 / 4, 3: 150}
+        self.C = {1: 600, 2: 2780/4, 3: 150}
         self.O = {i: operational_rate * PA_factor * self.C[i] for i in (1, 2, 3)}
         self.CO = {i: (self.C[i] + self.O[i]) / (365 * 24) for i in (1, 2, 3)}
-        UB = [166, 143, 666]
-        LB = [40, 40, 0]
+        UB = [166, 80, 40]
+        LB = [40, 10, 0]
         self.FuelPrice = 3.7
         alpha, beta = 0.5, 0.2
         self.GridPlus = 0.1497
@@ -155,17 +155,19 @@ class Model:
         model.addConstrs(E[(1, g, s)] == E[(T, g, s)] for s in RNGScen for g in RNGMonth)
         model.addConstrs(SOC_LB * X[(s, 1)] <= E[(t, g, s)] for t in RNGTime for s in RNGScen for g in RNGMonth)
         model.addConstrs(E[(t, g, s)] <= SOC_UB * X[(s, 1)] for t in RNGTime for s in RNGScen for g in RNGMonth)
+        
         # Balance of power flow
         model.addConstrs(E[(t + 1, g, s)] == E[(t, g, s)] +
                          ES_gamma * (Y_PVES[(t, g, s)] + Y_DGES[(t, g, s)] + Eta_c * Y_GridES[(t, g, s)]) -
                          Eta_i * (Y_ESL[(t, g, s)] + Y_ESGrid[(t, g, s)]) / ES_gamma
                          for t in RNGTimeMinus for s in RNGScen for g in RNGMonth)
+        
         # The share of Load
         model.addConstrs(Y_L[(t, g, s)] == Eta_i * (Y_ESL[(t, g, s)] + Y_DGL[(t, g, s)] + Y_PVL[(t, g, s)]) +
                          Y_GridL[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
-        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) == Y_L[(t, g, s)]
+        model.addConstrs(quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse) <= Y_L[(t, g, s)]
                          for t in RNGTime for s in RNGScen for g in RNGMonth)
 
         model.addConstrs(Y_GridL[(t, g, s)] <= quicksum(Y_LH[(h, t, g, s)] for h in RNGHouse)
@@ -232,7 +234,12 @@ class Model:
         self.RNGTime = RNGTime
         self.RNGMonth = RNGMonth
         self.RNGHouse = RNGHouse
+        self.model.setParam(GRB.Param.Cuts, 3)
+        self.model.setParam(GRB.Param.Heuristics, 1)
+        self.model.setParam(GRB.Param.ImpliedCuts, 2)
+        self.model.update()
         self.SetObjective(lmda)
+        
 
     def Solve(self):
         self.model.optimize()
@@ -433,7 +440,7 @@ if __name__ == '__main__':
     PObjectives = [0]
     P_LB = model
     NodeItr = 0
-    OptimalFound = False
+    OptimalNotFound = True
     subgrad_itr = []
 
     # START THE ALGORITHM
@@ -521,7 +528,7 @@ if __name__ == '__main__':
                     # Get cx + sum(pqy) for XR. Note that it must be applied on the primal problem without any bounds added.
                     OutPut = OriginalModel.FixVarSolve(XBarR)
                     if len(OutPut) == 1:
-                        print(f'Selected nodPe {OutPut[0]}, hence removed.')
+                        print(f'Selected node {OutPut[0]}, hence removed.')
                     else:
                         Z_XBarR = OutPut[1]
                         print(
@@ -531,7 +538,7 @@ if __name__ == '__main__':
                             Z_LB = Z_XBarR
                             print(f'Congratulations. Optimal solution found at: {X_LB} with {Z_LB:0.3f}')
                             PSet = []
-                            OptimalFound = True
+                            OptimalNotFound = False
                         else:
                             if Z_XBarR >= Z_LB:
                                 if Z_XBarR <= Z_P:
@@ -544,7 +551,7 @@ if __name__ == '__main__':
                                 X_LB = []
 
                     # BRANCHING STEP
-                    if OptimalFound == True:
+                    if OptimalNotFound:
                         print(f'Solutions are not identical. Branching for XBar {XBar}')
                         flag = True
                         for element in range(len(XBar)):

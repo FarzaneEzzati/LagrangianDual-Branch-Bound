@@ -550,8 +550,8 @@ def RunAlgo(rho, yo):
     return X_LB, run_time, np.mean(sub_gard_itr)
 
 if __name__ == '__main__':
-    rho = [0.2, 0.4, 0.6, 0.8]
-    yo = [0.2, 0.4, 0.6, 0.8]
+    rho = [0.2]
+    yo = [0.2]
     X_LB = {}
     run_time = {}
     sub_grad_itr = {}

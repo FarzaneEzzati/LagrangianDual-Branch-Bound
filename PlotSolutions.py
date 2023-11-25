@@ -27,6 +27,7 @@ if __name__ == '__main__':
     handle.close()
 
 
+
     fig1, axs = plt.subplots(1, 2, figsize=(40, 7), dpi=200)
     axs[0].bar(RNGT, l1[f'Month {g}'].iloc[0:len(RNGT)], width=w, linestyle='--', edgecolor='black', facecolor='white',
                label='Demand 1')
