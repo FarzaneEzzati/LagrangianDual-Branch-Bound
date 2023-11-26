@@ -14,18 +14,18 @@ env.setParam('OutputFlag', 0)
 
 def geneCases():
     # Each element represents the scenarios for a month (1, ..., 12)
-    with open('Data/OutageScenarios.pkl', 'rb') as handle:
+    with open('OutageScenarios.pkl', 'rb') as handle:
         scens, probs = pickle.load(handle)
     handle.close()
 
     # There are 5 scenarios.
 
     # Load profile of households
-    load_profile_1 = pd.read_csv('Data/Load_profile_1.csv')
-    load_profile_2 = pd.read_csv('Data/Load_profile_2.csv')
+    load_profile_1 = pd.read_csv('Load_profile_1.csv')
+    load_profile_2 = pd.read_csv('Load_profile_2.csv')
 
     # PV output for one unit (4kW)
-    pv_profile = pd.read_csv('Data/PV_profiles.csv')
+    pv_profile = pd.read_csv('PV_profiles.csv')
     return scens, probs, load_profile_1, load_profile_2, pv_profile
 
 
@@ -93,16 +93,6 @@ class Model:
                     Out_Time[(g, s)] = [OutageStart + i for i in range(int(scenarios[s - 1]))]
 
         Prob = {s: prob[s - 1] for s in RNGScen}
-
-        # Save initializations
-        with open('Initializations.pkl', 'wb') as handle:
-            pickle.dump([self.GridPlus, self.GridMinus,
-                         self.LoadPrice, self.GenerPrice,
-                         self.VoLL, self.PVSellPrice, self.DGSellPrice,
-                         self.PVCurPrice, self.DGCurPrice, self.FuelPrice,
-                         Load, PV_unit, RNGScen, RNGTime, RNGMonth, RNGHouse,
-                         self.DG_gamma], handle)
-        handle.close()
 
         # =============================================  Make Model  ==================================================
         # Generate the Model (with Lagrangian Dual)
@@ -420,8 +410,8 @@ class Model:
 
 
 if __name__ == '__main__':
-    rho = 0.2
-    yo = 0.2
+    rho = 0.4
+    yo = 0.8
     # The original model is used to evaluate generated XBarR, as the average of sub-problems first stage decisions
     OriginalModel = Model()
     OriginalModel.Build()
