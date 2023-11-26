@@ -15,7 +15,7 @@ class Outage:
 
     def dataPreparation(self):
         # Import Data 1
-        data1 = pd.read_csv('2000_2016_purdue.csv')
+        data1 = pd.read_csv('Data/2000_2016_purdue.csv')
         mask1 = data1['POSTAL.CODE'] == 'TX'
         data1_dropped = data1[mask1].dropna()
         XD = data1_dropped['OUTAGE.DURATION.HOUR']
@@ -23,7 +23,7 @@ class Outage:
         XW = data1_dropped['Week Day']
 
         # Import Data 2
-        data2 = pd.read_csv('Texas_2002_2023.csv')
+        data2 = pd.read_csv('Data/Texas_2002_2023.csv')
         mask2 = data2['Year'] > 2016
         data2_dropped = data2[mask2].dropna()
         YD = data2_dropped['Outage Duration']  # no need to divide by 60 since it is in hour unit
@@ -55,20 +55,20 @@ class Outage:
 
         plt.savefig('IMG/outage_start.jpg', dpi=300, bbox_inches='tight')
 
-        with open('Outage.pkl', 'wb') as handle:
+        with open('Data/Outage.pkl', 'wb') as handle:
             pickle.dump([OutDur, OutStrt], handle)
         handle.close()
 
 
     def fitDistribution(self):
 
-        with open('Outage.pkl', 'rb') as handle:
+        with open('Data/Outage.pkl', 'rb') as handle:
             OutDur, OutStrt = pickle.load(handle)
         handle.close()
 
         dist = distfit(smooth=5, bins=10000)
         dist.fit_transform(OutDur)
-        pd.DataFrame(dist.summary).to_csv('PDFs.csv')
+        pd.DataFrame(dist.summary).to_csv('Data/PDFs.csv')
 
         fig, axs = plt.subplots(2, 1, figsize=(20, 14))
         dist.plot(chart='pdf', n_top=10, ax=axs[0])
@@ -119,7 +119,7 @@ if __name__ == '__main__':
                 RProbs.append(ScenProbs[index+1])
 
         print(RScens)
-        with open('OutageScenarios.pkl', 'wb') as handle:
+        with open('Data/OutageScenarios.pkl', 'wb') as handle:
             pickle.dump([RScens, RProbs], handle)
         handle.close()
 

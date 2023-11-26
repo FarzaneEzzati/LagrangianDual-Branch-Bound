@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 
 def geneCases():
     # Load profile of households
-    load_profile_1 = pd.read_csv('Load_profile_1.csv')
-    load_profile_2 = pd.read_csv('Load_profile_2.csv')
+    load_profile_1 = pd.read_csv('Data/Load_profile_1.csv')
+    load_profile_2 = pd.read_csv('Data/Load_profile_2.csv')
 
     # PV output for one unit (4kW)
-    pv_profile = pd.read_csv('PV_profiles.csv')
+    pv_profile = pd.read_csv('Data/PV_profiles.csv')
     return pv_profile, load_profile_1, load_profile_2
 
 
